@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>PayRam</title>
+  <title>PayRam for Forex Brokers</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -13,9 +13,10 @@
     :root {
       --lime:  #CAFF54;
       --dark:  #0E1225;
+      --dark-alt: #1A1F35;
       --white: #FFFFFF;
-      --muted: rgba(14,18,37,0.52);
-      --w:     430px;
+      --muted: rgba(255,255,255,0.5);
+      --border: rgba(255,255,255,0.08);
     }
 
     html, body {
@@ -93,7 +94,7 @@
       to   { width: 100%; }
     }
 
-    /* ── Tap zones (invisible) ─────────────────────────────── */
+    /* ── Tap zones ─────────────────────────────────────────── */
     #tap-prev, #tap-next {
       position: absolute;
       top: 0;
@@ -104,15 +105,13 @@
     #tap-prev { left: 0; }
     #tap-next  { right: 0; }
 
-    /* ── Logo/brand strip at top of each slide ─────────────── */
+    /* ── Logo strip ─────────────────────────────────────────── */
     .slide-brand {
       position: absolute;
-      top: 38px;
+      top: 34px;
       left: 32px;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: -0.3px;
       z-index: 5;
+      line-height: 0;
     }
 
     /* ── Eyebrow label ──────────────────────────────────────── */
@@ -125,19 +124,12 @@
       margin-bottom: 16px;
     }
 
-    /* ── Massive headline ───────────────────────────────────── */
+    /* ── Headline ───────────────────────────────────────────── */
     .hl {
       font-size: clamp(36px, 10vw, 52px);
-      font-weight: 900;
+      font-weight: 800;
       line-height: 1.05;
       letter-spacing: -1.5px;
-    }
-
-    .hl-xl {
-      font-size: clamp(56px, 16vw, 80px);
-      font-weight: 900;
-      line-height: 0.96;
-      letter-spacing: -3px;
     }
 
     /* ── Body copy ──────────────────────────────────────────── */
@@ -164,11 +156,13 @@
       gap: 8px;
       font-size: 13px;
       font-weight: 700;
-      padding: 11px 22px;
+      padding: 14px 28px;
       border-radius: 100px;
       text-decoration: none;
       margin-top: 28px;
       letter-spacing: 0.2px;
+      width: 100%;
+      justify-content: center;
     }
 
     /* ── Badge pill ─────────────────────────────────────────── */
@@ -190,7 +184,7 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
       margin-top: 6px;
     }
 
@@ -217,7 +211,7 @@
       margin-top: 2px;
     }
 
-    /* ── Stat row ───────────────────────────────────────────── */
+    /* ── Stat ───────────────────────────────────────────────── */
     .stat-row {
       display: flex;
       flex-direction: column;
@@ -225,29 +219,43 @@
     }
 
     .stat-num {
-      font-size: clamp(64px, 18vw, 88px);
+      font-size: clamp(64px, 18vw, 96px);
       font-weight: 900;
       line-height: 1;
       letter-spacing: -4px;
+      color: var(--lime);
     }
 
     .stat-label {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 500;
-      opacity: 0.55;
-      letter-spacing: 0.3px;
+      opacity: 0.7;
+      letter-spacing: 0.1px;
+      max-width: 280px;
+      line-height: 1.4;
     }
 
-    /* ── Decorative shapes ──────────────────────────────────── */
+    /* ── Decorative circle ──────────────────────────────────── */
     .deco-circle {
       position: absolute;
       border-radius: 50%;
       pointer-events: none;
     }
 
-    /* ── Slide-specific ─────────────────────────────────────── */
+    /* ── Slide-in animation ─────────────────────────────────── */
+    .slide-content {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.4s ease 0.12s, transform 0.4s ease 0.12s;
+      width: 100%;
+    }
 
-    /* S1 — Hero: lime background */
+    .slide.is-active .slide-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── SLIDE 1: Hero — lime ───────────────────────────────── */
     #s1 { background: var(--lime); }
     #s1 .slide-brand { color: var(--dark); }
     #s1 .eyebrow { color: var(--dark); }
@@ -269,147 +277,178 @@
       bottom: -80px; right: -80px;
     }
 
-    /* S2 — Problem: dark background */
+    /* ── SLIDE 2: Problem — dark ────────────────────────────── */
     #s2 { background: var(--dark); }
-    #s2 .slide-brand { color: var(--lime); }
-    #s2 .eyebrow { color: rgba(255,255,255,0.5); }
+    #s2 .slide-brand { color: var(--white); }
+    #s2 .eyebrow { color: var(--muted); }
     #s2 .hl { color: var(--white); }
-    #s2 .body { color: rgba(255,255,255,0.6); }
     #s2 .div { background: var(--lime); }
     #s2 .feat-list li { color: var(--white); }
-    #s2 .feat-list li .sub { color: rgba(255,255,255,0.38); }
+    #s2 .feat-list li .sub { color: rgba(255,255,255,0.4); }
     #s2 .deco-circle {
       width: 320px; height: 320px;
       background: rgba(202,255,84,0.05);
       top: -100px; right: -120px;
     }
 
-    /* S3 — Big stat: lime background */
-    #s3 { background: var(--lime); }
-    #s3 .slide-brand { color: var(--dark); }
-    #s3 .eyebrow { color: var(--dark); }
-    #s3 .stat-num { color: var(--dark); }
-    #s3 .stat-label { color: var(--dark); }
-    #s3 .hl { color: var(--dark); font-size: clamp(22px, 6vw, 30px); letter-spacing: -0.5px; }
-    #s3 .body { color: var(--dark); }
-    #s3 .div { background: rgba(14,18,37,0.2); }
+    /* ── SLIDE 3-5: Stats — dark ────────────────────────────── */
+    #s3, #s4, #s5 { background: var(--dark); }
+    #s3 .slide-brand, #s4 .slide-brand, #s5 .slide-brand { color: var(--white); }
+    #s3 .eyebrow, #s4 .eyebrow, #s5 .eyebrow { color: var(--muted); }
+    #s3 .stat-label, #s4 .stat-label, #s5 .stat-label { color: rgba(255,255,255,0.7); }
+    #s3 .body, #s4 .body, #s5 .body { color: rgba(255,255,255,0.5); }
+    #s3 .div, #s4 .div, #s5 .div { background: var(--lime); }
     #s3 .deco-circle {
-      width: 240px; height: 240px;
-      background: rgba(14,18,37,0.06);
-      bottom: -60px; left: -60px;
-    }
-
-    /* S4 — Features: dark background */
-    #s4 { background: var(--dark); }
-    #s4 .slide-brand { color: var(--lime); }
-    #s4 .eyebrow { color: rgba(255,255,255,0.45); }
-    #s4 .hl { color: var(--white); }
-    #s4 .feat-list li { color: var(--white); }
-    #s4 .feat-list li .sub { color: rgba(255,255,255,0.38); }
-    #s4 .div { background: var(--lime); }
-    #s4 .deco-circle {
       width: 260px; height: 260px;
       background: rgba(202,255,84,0.04);
       bottom: -60px; right: -80px;
     }
+    #s4 .deco-circle {
+      width: 240px; height: 240px;
+      background: rgba(202,255,84,0.04);
+      top: -60px; left: -60px;
+    }
+    #s5 .deco-circle {
+      width: 260px; height: 260px;
+      background: rgba(202,255,84,0.04);
+      bottom: -80px; right: -80px;
+    }
 
-    /* S5 — CTA: split dark/lime */
-    #s5 {
-      background: var(--dark);
+    /* ── SLIDE 6: How It Works — dark ───────────────────────── */
+    #s6 { background: var(--dark); }
+    #s6 .slide-brand { color: var(--white); }
+    #s6 .eyebrow { color: var(--muted); }
+    #s6 .hl { color: var(--white); }
+    #s6 .div { background: var(--lime); }
+    #s6 .feat-list li { color: var(--white); }
+    #s6 .feat-list li .sub { color: rgba(255,255,255,0.4); }
+    #s6 .deco-circle {
+      width: 300px; height: 300px;
+      background: rgba(202,255,84,0.04);
+      bottom: -80px; right: -100px;
+    }
+
+    /* ── SLIDE 7: Payouts — dark ────────────────────────────── */
+    #s7 { background: var(--dark); }
+    #s7 .slide-brand { color: var(--white); }
+    #s7 .eyebrow { color: var(--muted); }
+    #s7 .hl { color: var(--white); }
+    #s7 .body { color: rgba(255,255,255,0.5); }
+    #s7 .div { background: var(--lime); }
+    #s7 .deco-circle {
+      width: 260px; height: 260px;
+      background: rgba(202,255,84,0.04);
+      top: -80px; right: -80px;
+    }
+
+    /* ── SLIDE 8: Scale — dark ──────────────────────────────── */
+    #s8 { background: var(--dark); }
+    #s8 .slide-brand { color: var(--white); }
+    #s8 .eyebrow { color: var(--muted); }
+    #s8 .hl { color: var(--white); }
+    #s8 .body { color: rgba(255,255,255,0.5); }
+    #s8 .div { background: var(--lime); }
+    #s8 .deco-circle {
+      width: 280px; height: 280px;
+      background: rgba(202,255,84,0.04);
+      bottom: -80px; left: -80px;
+    }
+
+    /* ── SLIDE 9: CTA — lime ────────────────────────────────── */
+    #s9 {
+      background: var(--lime);
       justify-content: flex-end;
       padding-bottom: 64px;
     }
-    #s5 .slide-brand { color: var(--lime); }
+    #s9 .slide-brand { color: var(--white); }
 
-    .s5-top {
+    .s9-top {
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 52%;
-      background: var(--lime);
+      height: 50%;
+      background: var(--dark);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       padding: 0 32px 28px;
     }
 
-    .s5-top .hl {
-      color: var(--dark);
-      font-size: clamp(34px, 9vw, 48px);
+    .s9-top .hl {
+      color: var(--white);
+      font-size: clamp(28px, 7.5vw, 40px);
     }
 
-    .s5-bottom {
+    .s9-top .body {
+      color: rgba(255,255,255,0.55);
+      margin-top: 10px;
+    }
+
+    .s9-bottom {
       position: relative;
       z-index: 2;
       width: 100%;
-      padding: 0 4px;
     }
 
-    .s5-links {
+    .s9-links {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 28px;
+      gap: 10px;
+      margin-top: 20px;
     }
 
-    .s5-link {
+    .s9-link {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(14,18,37,0.08);
+      border: 1px solid rgba(14,18,37,0.12);
       border-radius: 14px;
-      padding: 16px 20px;
+      padding: 14px 18px;
       text-decoration: none;
       transition: background 0.2s;
     }
 
-    .s5-link:hover { background: rgba(255,255,255,0.1); }
+    .s9-link:hover { background: rgba(14,18,37,0.14); }
 
-    .s5-link-label {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--white);
+    .s9-link-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
     }
 
-    .s5-link-sub {
+    .s9-link-sub {
       font-size: 11px;
-      color: rgba(255,255,255,0.4);
+      color: rgba(14,18,37,0.5);
       margin-top: 2px;
     }
 
-    .s5-link-arrow {
-      font-size: 18px;
-      color: var(--lime);
+    .s9-link-arrow {
+      font-size: 16px;
+      color: var(--dark);
       font-weight: 700;
     }
 
-    .s5-link.primary {
-      background: var(--lime);
-      border-color: transparent;
+    .s9-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
+      color: var(--lime);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 16px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      margin-top: 20px;
+      width: 100%;
     }
-
-    .s5-link.primary .s5-link-label { color: var(--dark); }
-    .s5-link.primary .s5-link-sub { color: rgba(14,18,37,0.5); }
-    .s5-link.primary .s5-link-arrow { color: var(--dark); }
 
     .domain-strip {
-      margin-top: 28px;
+      margin-top: 16px;
       font-size: 11px;
-      color: rgba(255,255,255,0.22);
+      color: rgba(14,18,37,0.35);
       letter-spacing: 0.5px;
       text-align: center;
-    }
-
-    /* ── Slide-in animation ─────────────────────────────────── */
-    .slide-content {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.4s ease 0.12s, transform 0.4s ease 0.12s;
-    }
-
-    .slide.is-active .slide-content {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     /* ── Desktop centering frame ────────────────────────────── */
@@ -421,7 +460,6 @@
         background: #111;
       }
       #story {
-        /* Maintain 9:16 ratio, fit within viewport with padding */
         --frame-h: min(calc(430px * 16 / 9), 95dvh);
         width: calc(var(--frame-h) * 9 / 16);
         height: var(--frame-h);
@@ -434,14 +472,30 @@
 </head>
 <body>
 
+<!-- ── PayRam logo symbol (currentColor — CSS controls variant) ── -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="payram-logo" viewBox="0 0 814 176">
+    <path d="M154.126 58.515C153.846 61.1643 153.218 64.2997 152.238 67.9168C149.946 75.9853 146.046 83.3055 140.542 89.873C135.034 96.4449 128.073 101.653 119.658 105.503C112.056 108.991 103.663 110.9 94.4741 111.236L118.579 78.6734H95.6695L108.99 31.3288L55.7155 95.2062H80.2589L75.7398 111.287H75.6022L64.1087 151.948H24L60.0024 24H116.008C129.617 24 139.652 27.0709 146.115 33.2169C152.578 39.3586 155.248 47.7927 154.121 58.515H154.126Z" fill="currentColor"/>
+    <path d="M242.729 24.0473H196.476L113.682 152H155.782L167.564 132.663H210.205L211.069 152H253.345L242.729 24.0473ZM185.907 102.483L207.526 66.8846L209.031 102.483H185.907Z" fill="currentColor"/>
+    <path d="M341.397 24.0258L308.276 69.3834L300.566 24.0258H254.67L275.502 113.12L264.559 151.974H304.672L315.611 113.12L386.567 24.0258H341.393H341.397Z" fill="currentColor"/>
+    <path d="M476.285 33.2426C469.818 27.0966 459.726 24.0258 445.992 24.0258H386.371L350.373 151.978H390.482L403.424 106.075L414.694 151.978H458.776L444.763 103.004C454.459 100.114 462.603 95.3825 469.194 88.815C475.782 82.2474 480.314 74.6305 482.79 65.9512C483.526 63.547 484.05 60.8331 484.364 57.8182C485.439 47.5776 482.743 39.3844 476.28 33.2426H476.285ZM441.512 68.4802C440.398 72.2177 438.631 74.9574 436.223 76.7035C433.807 78.454 430.676 79.3228 426.824 79.3228H410.923L416.99 57.6375H432.895C436.141 57.6375 438.532 58.3902 440.067 59.8955C441.589 61.4051 442.217 63.4782 441.938 66.1319C441.834 67.0953 441.697 67.878 441.512 68.4802Z" fill="currentColor"/>
+    <path d="M587.826 24.0258H541.568L458.776 151.978H500.875L512.661 132.641H555.298L556.162 151.978H598.442L587.826 24.0258ZM531 102.458L552.623 66.8587L554.128 102.458H531Z" fill="currentColor"/>
+    <path d="M741.042 24.0258L691.96 101.012L685.394 24.0258H636.251L600.253 151.978H640.362L658.292 87.8214L660.059 151.978H694.389L731.952 88.3634L714.082 151.978H754.011L790.004 24.0258H741.042Z" fill="currentColor"/>
+  </symbol>
+</svg>
+
 <div id="story">
 
   <!-- Progress bar -->
   <div id="progress">
     <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
-    <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="8"><div class="prog-fill"></div></div>
   </div>
 
@@ -454,13 +508,19 @@
 
     <!-- ── SLIDE 1: HERO ──────────────────────────────────── -->
     <div class="slide" id="s1">
-      <div class="deco-circle"></div>
-      <div class="slide-brand">PayRam</div>
+      <svg id="globe-bg" aria-hidden="true"
+           viewBox="0 0 430 900"
+           preserveAspectRatio="xMidYMid slice"
+           style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"
+           xmlns="http://www.w3.org/2000/svg">
+        <g id="globe-g"></g>
+      </svg>
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
       <div class="slide-content">
-        <div class="badge">Self-hosted · Non-custodial</div>
-        <h1 class="hl">Accept payments onchain.<br>No approvals.<br>No middleman.</h1>
+        <div class="badge">For Forex Brokers</div>
+        <h1 class="hl">The fastest way for traders to fund their accounts.</h1>
         <div class="div"></div>
-        <p class="body">Your payment gateway. Your server. Your funds — direct to your wallet.</p>
+        <p class="body">Onchain. Instant. No bank delays.</p>
         <a class="cta-pill" href="https://docs.payram.com" target="_blank" rel="noopener">
           Deploy in 10 min →
         </a>
@@ -470,17 +530,17 @@
     <!-- ── SLIDE 2: THE PROBLEM ───────────────────────────── -->
     <div class="slide" id="s2">
       <div class="deco-circle"></div>
-      <div class="slide-brand">PayRam</div>
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
       <div class="slide-content">
-        <p class="eyebrow">Why PayRam</p>
-        <h2 class="hl">Traditional payment rails are broken.</h2>
+        <p class="eyebrow">The Problem</p>
+        <h2 class="hl">Slow deposits are killing your conversion.</h2>
         <div class="div"></div>
         <ul class="feat-list">
           <li>
             <span class="icon">⏳</span>
             <div>
-              <div class="label">Weeks to get approved</div>
-              <div class="sub">PayRam: live in under 10 minutes</div>
+              <div class="label">2-5 day bank wire delays</div>
+              <div class="sub">PayRam: deposits confirm in 2-30 seconds</div>
             </div>
           </li>
           <li>
@@ -493,104 +553,166 @@
           <li>
             <span class="icon">🚫</span>
             <div>
-              <div class="label">Account can be shut down overnight</div>
-              <div class="sub">PayRam: self-hosted, censorship-resistant</div>
+              <div class="label">Card declines and failed transactions</div>
+              <div class="sub">PayRam: stablecoin transfers never fail</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🌍</span>
+            <div>
+              <div class="label">Traders in 80+ countries can't fund easily</div>
+              <div class="sub">PayRam: 190+ countries, no bank needed</div>
             </div>
           </li>
         </ul>
       </div>
     </div>
 
-    <!-- ── SLIDE 3: BIG STAT ──────────────────────────────── -->
+    <!-- ── SLIDE 3: STAT — ABANDONMENT ───────────────────── -->
     <div class="slide" id="s3">
       <div class="deco-circle"></div>
-      <div class="slide-brand">PayRam</div>
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
       <div class="slide-content">
-        <p class="eyebrow">The Stablecoin Opportunity</p>
+        <p class="eyebrow">The Opportunity</p>
         <div class="stat-row">
-          <span class="stat-num">$33T</span>
-          <span class="stat-label">Stablecoin volume in 2025 — up 72% YoY</span>
+          <span class="stat-num">35-45%</span>
+          <span class="stat-label">of traders abandon between signup and first deposit</span>
         </div>
         <div class="div"></div>
-        <h3 class="hl">That's 2× Visa.<br>And growing fast.</h3>
-        <p class="body">125% growth in retail stablecoin transactions last year. 10M+ daily active addresses. The rails are shifting.</p>
+        <p class="body">Bank wire delays are the biggest reason. PayRam eliminates them.</p>
       </div>
     </div>
 
-    <!-- ── SLIDE 4: FEATURES ──────────────────────────────── -->
+    <!-- ── SLIDE 4: STAT — SPEED ──────────────────────────── -->
     <div class="slide" id="s4">
       <div class="deco-circle"></div>
-      <div class="slide-brand">PayRam</div>
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
       <div class="slide-content">
-        <p class="eyebrow">What you get</p>
-        <h2 class="hl">Everything<br>you need.</h2>
+        <div class="stat-row">
+          <span class="stat-num">2-30 sec</span>
+          <span class="stat-label">deposit confirmation time for most stablecoins</span>
+        </div>
+        <div class="div"></div>
+        <p class="body">Your trader funds. Trades. Wins. All before a wire clears.</p>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 5: STAT — FEES ───────────────────────────── -->
+    <div class="slide" id="s5">
+      <div class="deco-circle"></div>
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <div class="stat-row">
+          <span class="stat-num">&lt;$1</span>
+          <span class="stat-label">typical network fee per deposit</span>
+        </div>
+        <div class="div"></div>
+        <p class="body">vs $15-45 for a wire. vs 3.5-6.5% MDR for cards.</p>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 6: HOW IT WORKS ──────────────────────────── -->
+    <div class="slide" id="s6">
+      <div class="deco-circle"></div>
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">How It Works</p>
+        <h2 class="hl">One address per trader. Forever.</h2>
         <div class="div"></div>
         <ul class="feat-list">
           <li>
-            <span class="icon">🔗</span>
+            <span class="icon">🙋</span>
             <div>
-              <div class="label">Payment Links</div>
-              <div class="sub">Share via WhatsApp, Telegram, DM — get paid in seconds</div>
+              <div class="label">Unique deposit wallet per client</div>
+              <div class="sub">Reusable from any exchange or wallet, anytime</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">⚡</span>
+            <div>
+              <div class="label">Instant confirmation</div>
+              <div class="sub">2-30 seconds. Balance updates in real time.</div>
             </div>
           </li>
           <li>
             <span class="icon">💳</span>
             <div>
-              <div class="label">Card-to-Crypto Onramp</div>
-              <div class="sub">175+ methods, 190+ countries</div>
+              <div class="label">Card onramp available</div>
+              <div class="sub">No crypto? Pay by card. You settle in USDT.</div>
             </div>
           </li>
           <li>
-            <span class="icon">🤖</span>
+            <span class="icon">💰</span>
             <div>
-              <div class="label">MCP Server for AI Agents</div>
-              <div class="sub">One prompt deploys the full gateway</div>
-            </div>
-          </li>
-          <li>
-            <span class="icon">⛓️</span>
-            <div>
-              <div class="label">Multi-Chain</div>
-              <div class="sub">Ethereum, Base, Tron, Polygon, Bitcoin</div>
+              <div class="label">SmartSweep</div>
+              <div class="sub">Funds auto-consolidate to your cold wallet</div>
             </div>
           </li>
         </ul>
       </div>
     </div>
 
-    <!-- ── SLIDE 5: CTA ───────────────────────────────────── -->
-    <div class="slide" id="s5">
-      <div class="slide-brand">PayRam</div>
+    <!-- ── SLIDE 7: WITHDRAWALS ───────────────────────────── -->
+    <div class="slide" id="s7">
+      <div class="deco-circle"></div>
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">Withdrawals</p>
+        <h2 class="hl">Send payouts in a few clicks.</h2>
+        <div class="div"></div>
+        <p class="body">USDT or USDC. Any wallet. Any chain. Full audit trail.</p>
+      </div>
+    </div>
 
-      <div class="s5-top">
-        <h2 class="hl">You own the infrastructure.<br>You control the funds.</h2>
+    <!-- ── SLIDE 8: SCALE ─────────────────────────────────── -->
+    <div class="slide" id="s8">
+      <div class="deco-circle"></div>
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">For Brokers at Scale</p>
+        <h2 class="hl">Run multiple brands. One account.</h2>
+        <div class="div"></div>
+        <p class="body">Separate wallets, settings, and onramp controls per project. Full analytics and export-ready reports.</p>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 9: GETTING STARTED ───────────────────────── -->
+    <div class="slide" id="s9">
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+
+      <div class="s9-top">
+        <h2 class="hl">Go live before your next trader tries to fund.</h2>
+        <p class="body">No approval. No paperwork. No waiting.</p>
       </div>
 
-      <div class="s5-bottom slide-content">
-        <div class="s5-links">
-          <a class="s5-link primary" href="https://docs.payram.com" target="_blank" rel="noopener">
+      <div class="s9-bottom slide-content">
+        <div class="s9-links">
+          <a class="s9-link" href="https://docs.payram.com" target="_blank" rel="noopener">
             <div>
-              <div class="s5-link-label">Deploy Now</div>
-              <div class="s5-link-sub">docs.payram.com · live in &lt;10 min</div>
+              <div class="s9-link-label">🛠️ Self-deploy</div>
+              <div class="s9-link-sub">docs.payram.com</div>
             </div>
-            <span class="s5-link-arrow">→</span>
+            <span class="s9-link-arrow">→</span>
           </a>
-          <a class="s5-link" href="https://mcp.payram.com" target="_blank" rel="noopener">
+          <a class="s9-link" href="https://mcp.payram.com" target="_blank" rel="noopener">
             <div>
-              <div class="s5-link-label">AI Agent Setup</div>
-              <div class="s5-link-sub">mcp.payram.com · one prompt deploys</div>
+              <div class="s9-link-label">🤖 AI agent setup</div>
+              <div class="s9-link-sub">mcp.payram.com</div>
             </div>
-            <span class="s5-link-arrow">→</span>
+            <span class="s9-link-arrow">→</span>
           </a>
-          <a class="s5-link" href="https://calendly.com/payram-sales/30min" target="_blank" rel="noopener">
+          <a class="s9-link" href="https://calendly.com/payram-sales/30min" target="_blank" rel="noopener">
             <div>
-              <div class="s5-link-label">Book a Demo</div>
-              <div class="s5-link-sub">30-min technical walkthrough</div>
+              <div class="s9-link-label">📞 Talk to us</div>
+              <div class="s9-link-sub">Book a 30-min demo</div>
             </div>
-            <span class="s5-link-arrow">→</span>
+            <span class="s9-link-arrow">→</span>
           </a>
         </div>
-        <div class="domain-strip">payram.com · sales@payram.com</div>
+        <a class="s9-cta" href="https://docs.payram.com" target="_blank" rel="noopener">
+          Deploy in 10 min →
+        </a>
+        <div class="domain-strip">PayRam · docs.payram.com · sales@payram.com</div>
       </div>
     </div>
 
@@ -598,27 +720,24 @@
 </div><!-- /story -->
 
 <script>
-  const SLIDES = 5;
+  const SLIDES = 9;
   let current = 0;
   let segTimer = null;
   let paused = false;
 
-  const track = document.getElementById('track');
-  const segs  = document.querySelectorAll('.prog-seg');
+  const track  = document.getElementById('track');
+  const segs   = document.querySelectorAll('.prog-seg');
   const slides = document.querySelectorAll('.slide');
 
   function goTo(idx, immediate) {
     idx = Math.max(0, Math.min(SLIDES - 1, idx));
     current = idx;
 
-    // Move track
     track.style.transition = immediate ? 'none' : 'transform 0.38s cubic-bezier(.4,0,.2,1)';
-    track.style.transform = `translateY(${-idx * 100}%)`;
+    track.style.transform  = `translateY(${-idx * 100}%)`;
 
-    // Active class
     slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
 
-    // Progress segments
     segs.forEach((seg, i) => {
       seg.classList.remove('done', 'active');
       seg.querySelector('.prog-fill').style.width = '';
@@ -628,13 +747,12 @@
       } else if (i === idx) {
         const dur = (seg.dataset.dur || 6) + 's';
         seg.style.setProperty('--seg-dur', dur);
-        void seg.querySelector('.prog-fill').offsetWidth; // reflow
+        void seg.querySelector('.prog-fill').offsetWidth;
         seg.querySelector('.prog-fill').style.animation = '';
         seg.classList.add('active');
       }
     });
 
-    // Auto-advance
     clearTimeout(segTimer);
     const dur = parseFloat(segs[idx].dataset.dur || 6) * 1000;
     segTimer = setTimeout(() => {
@@ -642,22 +760,15 @@
     }, dur);
   }
 
-  // Tap prev/next
-  document.getElementById('tap-prev').addEventListener('click', () => {
-    goTo(current - 1);
-  });
-  document.getElementById('tap-next').addEventListener('click', () => {
-    goTo(current + 1);
-  });
+  document.getElementById('tap-prev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('tap-next').addEventListener('click', () => goTo(current + 1));
 
-  // Hold to pause
   let holdTimer;
   document.getElementById('story').addEventListener('pointerdown', () => {
     holdTimer = setTimeout(() => {
       paused = true;
       clearTimeout(segTimer);
-      const fill = segs[current].querySelector('.prog-fill');
-      fill.style.animationPlayState = 'paused';
+      segs[current].querySelector('.prog-fill').style.animationPlayState = 'paused';
     }, 180);
   });
 
@@ -665,8 +776,7 @@
     clearTimeout(holdTimer);
     if (paused) {
       paused = false;
-      const fill = segs[current].querySelector('.prog-fill');
-      fill.style.animationPlayState = 'running';
+      segs[current].querySelector('.prog-fill').style.animationPlayState = 'running';
       const dur = parseFloat(segs[current].dataset.dur || 6) * 1000;
       segTimer = setTimeout(() => {
         if (current < SLIDES - 1) goTo(current + 1);
@@ -674,7 +784,6 @@
     }
   });
 
-  // Swipe up/down
   let touchY = 0;
   document.getElementById('story').addEventListener('touchstart', e => {
     touchY = e.touches[0].clientY;
@@ -682,12 +791,69 @@
 
   document.getElementById('story').addEventListener('touchend', e => {
     const dy = touchY - e.changedTouches[0].clientY;
-    if (Math.abs(dy) > 40) {
-      goTo(dy > 0 ? current + 1 : current - 1);
-    }
+    if (Math.abs(dy) > 40) goTo(dy > 0 ? current + 1 : current - 1);
   }, { passive: true });
 
-  // Init
+  // ── Globe background (Slide 1) ─────────────────────────────
+  (function() {
+    const g  = document.getElementById('globe-g');
+    if (!g) return;
+    const ns = 'http://www.w3.org/2000/svg';
+    // Fixed coords within viewBox="0 0 430 900"
+    const R  = 360;
+    const cx = 215;
+    const cy = 600;
+    const elev = 22 * Math.PI / 180;
+    const sinE = Math.sin(elev), cosE = Math.cos(elev);
+    const steps = 120;
+
+    function project(phi, lam) {
+      const x = Math.cos(phi) * Math.sin(lam);
+      const y = Math.sin(phi);
+      const z = Math.cos(phi) * Math.cos(lam);
+      const yR = y * cosE - z * sinE;
+      return [cx + x * R, cy - yR * R];
+    }
+
+    function addPath(pts, sw) {
+      const d  = 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L');
+      const el = document.createElementNS(ns, 'path');
+      el.setAttribute('d', d);
+      el.setAttribute('fill', 'none');
+      el.setAttribute('stroke', '#0E1225');
+      el.setAttribute('stroke-width', sw || '1');
+      g.appendChild(el);
+    }
+
+    // Latitude lines
+    [-60, -45, -30, -15, 0, 15, 30, 45, 60].forEach(lat => {
+      const phi = lat * Math.PI / 180;
+      addPath(Array.from({length: steps + 1}, (_, i) =>
+        project(phi, (i / steps) * 2 * Math.PI)));
+    });
+
+    // Longitude lines (full pole-to-pole arcs)
+    [0, 20, 40, 60, 80, 100, 120, 140, 160].forEach(lon => {
+      const lam = lon * Math.PI / 180;
+      addPath(Array.from({length: steps + 1}, (_, i) =>
+        project((i / steps) * Math.PI - Math.PI / 2, lam)));
+    });
+
+    // Bounding circle
+    const circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', cy);
+    circle.setAttribute('r', R);
+    circle.setAttribute('fill', 'none');
+    circle.setAttribute('stroke', '#0E1225');
+    circle.setAttribute('stroke-width', '1.5');
+    g.appendChild(circle);
+
+    // In-plane tilt (20° clockwise to match reference)
+    g.setAttribute('transform', `rotate(20, ${cx}, ${cy})`);
+    g.setAttribute('opacity', '0.13');
+  })();
+
   goTo(0, true);
 </script>
 
