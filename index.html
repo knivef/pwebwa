@@ -221,6 +221,17 @@
       margin-top: 3px;
     }
 
+    /* ── Stat card ─────────────────────────────────────────── */
+    .stat-card {
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(14,18,37,0.10);
+      border: 1px solid rgba(14,18,37,0.14);
+      display: inline-flex;
+      flex-direction: column;
+      margin-top: 4px;
+    }
+
     /* ── Stat ───────────────────────────────────────────────── */
     .stat-row {
       display: flex;
@@ -594,9 +605,11 @@
       <div class="slide-content">
         <p class="eyebrow">The Cost</p>
         <h2 class="hl">Every day this goes unsolved, you lose.</h2>
-        <div class="stat-row">
-          <span class="stat-num">35-45%</span>
-          <span class="stat-label">of traders abandon between signup and first deposit</span>
+        <div class="stat-card">
+          <div class="stat-row">
+            <span class="stat-num">35-45%</span>
+            <span class="stat-label">of traders abandon between signup and first deposit</span>
+          </div>
         </div>
         <div class="div"></div>
         <p class="body">28% of them fund with a competitor instead.</p>
