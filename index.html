@@ -484,7 +484,7 @@
     .s9-link:hover { background: rgba(14,18,37,0.14); }
 
     .s9-link-label {
-      font-size: 13px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--dark);
     }
@@ -493,6 +493,12 @@
       font-size: 11px;
       color: rgba(14,18,37,0.5);
       margin-top: 2px;
+    }
+
+    .s9-link-sub a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
     .s9-link-arrow {
@@ -809,7 +815,7 @@
     <!-- ── SLIDE 8: GETTING STARTED ─────────────────────────── -->
     <div class="slide" id="s8">
       <img src="star-wireframe.png" aria-hidden="true"
-           style="position:absolute;top:-18%;right:-22%;width:120%;pointer-events:none;mix-blend-mode:multiply;opacity:0.18;" />
+           style="position:absolute;top:-18%;right:-22%;width:120%;pointer-events:none;mix-blend-mode:multiply;opacity:0.10;" />
       <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
       <div class="slide-content">
         <h2 class="hl">Go live before your next trader tries to fund.</h2>
@@ -819,14 +825,14 @@
           <a class="s9-link" href="https://docs.payram.com" target="_blank" rel="noopener">
             <div>
               <div class="s9-link-label">🛠️ Self-deploy</div>
-              <div class="s9-link-sub">Visit docs.payram.com</div>
+              <div class="s9-link-sub">Visit <a href="https://docs.payram.com" target="_blank" rel="noopener">docs.payram.com</a></div>
             </div>
             <span class="s9-link-arrow">→</span>
           </a>
           <a class="s9-link" href="https://mcp.payram.com" target="_blank" rel="noopener">
             <div>
               <div class="s9-link-label">🤖 AI agent setup</div>
-              <div class="s9-link-sub">Visit mcp.payram.com</div>
+              <div class="s9-link-sub">Visit <a href="https://mcp.payram.com" target="_blank" rel="noopener">mcp.payram.com</a></div>
             </div>
             <span class="s9-link-arrow">→</span>
           </a>
