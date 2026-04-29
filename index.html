@@ -454,49 +454,19 @@
     #s7 .stat-card-divider { background: rgba(14,18,37,0.1); }
     #s7 .body-card-text { font-size: 15px; line-height: 1.6; color: rgba(14,18,37,0.75); font-weight: 700; }
 
-    /* ── SLIDE 8: CTA — split dark/lime ───────────────────────── */
-    #s8 {
-      background: var(--dark);
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: stretch;
-      padding: 0;
-    }
-    #s8 .slide-brand { color: var(--white); }
-
-    .s9-top {
-      background: var(--dark);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 72px 32px 32px;
-      flex: 0 0 auto;
-    }
-
-    .s9-top .hl {
-      color: var(--white);
-      font-size: clamp(28px, 7.5vw, 40px);
-    }
-
-    .s9-top .body {
-      color: rgba(255,255,255,0.55);
-      margin-top: 10px;
-    }
-
-    .s9-bottom {
-      background: var(--lime);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 28px 32px 40px;
-    }
+    /* ── SLIDE 8: CTA — full lime ─────────────────────────────── */
+    #s8 { background: var(--lime); }
+    #s8 .slide-brand { color: var(--dark); }
+    #s8 .eyebrow { color: rgba(14,18,37,0.55); border-color: rgba(14,18,37,0.2); background: rgba(14,18,37,0.06); }
+    #s8 .hl { color: var(--dark); font-size: clamp(28px, 7.5vw, 40px); }
+    #s8 .body { color: rgba(14,18,37,0.6); margin-top: 10px; }
+    #s8 .div { background: var(--dark); }
 
     .s9-links {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-top: 0;
+      margin-top: 16px;
     }
 
     .s9-link {
@@ -838,14 +808,13 @@
 
     <!-- ── SLIDE 8: GETTING STARTED ─────────────────────────── -->
     <div class="slide" id="s8">
+      <img src="star-wireframe.png" aria-hidden="true"
+           style="position:absolute;top:-18%;right:-22%;width:120%;pointer-events:none;mix-blend-mode:multiply;opacity:0.18;" />
       <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
-
-      <div class="s9-top">
+      <div class="slide-content">
         <h2 class="hl">Go live before your next trader tries to fund.</h2>
         <p class="body">No approval. No paperwork. No waiting.</p>
-      </div>
-
-      <div class="s9-bottom slide-content">
+        <div class="div" style="margin-top:20px;"></div>
         <div class="s9-links">
           <a class="s9-link" href="https://docs.payram.com" target="_blank" rel="noopener">
             <div>
