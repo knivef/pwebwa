@@ -116,12 +116,18 @@
 
     /* ── Eyebrow label ──────────────────────────────────────── */
     .eyebrow {
+      display: inline-flex;
+      align-items: center;
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 2.4px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      opacity: 0.52;
-      margin-bottom: 16px;
+      padding: 5px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 18px;
     }
 
     /* ── Headline ───────────────────────────────────────────── */
@@ -179,36 +185,40 @@
       margin-bottom: 20px;
     }
 
-    /* ── Feature list ───────────────────────────────────────── */
+    /* ── Feature list — mini cards ──────────────────────────── */
     .feat-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 8px;
       margin-top: 6px;
     }
 
     .feat-list li {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      font-size: 15px;
+      gap: 12px;
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      font-size: 14px;
       font-weight: 500;
       line-height: 1.4;
     }
 
     .feat-list li .icon {
-      font-size: 22px;
+      font-size: 20px;
       flex-shrink: 0;
-      margin-top: -1px;
+      margin-top: 1px;
     }
 
-    .feat-list li .label { opacity: 0.9; }
+    .feat-list li .label { opacity: 0.92; }
     .feat-list li .sub {
       font-size: 12px;
-      opacity: 0.48;
+      color: rgba(202,255,84,0.75);
       font-weight: 400;
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
     /* ── Stat ───────────────────────────────────────────────── */
@@ -219,11 +229,12 @@
     }
 
     .stat-num {
-      font-size: clamp(64px, 18vw, 96px);
+      font-size: clamp(48px, 15vw, 96px);
       font-weight: 900;
       line-height: 1;
-      letter-spacing: -4px;
+      letter-spacing: -3px;
       color: var(--lime);
+      white-space: nowrap;
     }
 
     .stat-label {
@@ -277,22 +288,32 @@
       bottom: -80px; right: -80px;
     }
 
-    /* ── SLIDE 2: Problem — dark ────────────────────────────── */
-    #s2 { background: var(--dark); }
-    #s2 .slide-brand { color: var(--white); }
-    #s2 .eyebrow { color: var(--muted); }
-    #s2 .hl { color: var(--white); }
-    #s2 .div { background: var(--lime); }
-    #s2 .feat-list li { color: var(--white); }
-    #s2 .feat-list li .sub { color: rgba(255,255,255,0.4); }
+    /* ── SLIDE 2: Problem — vivid green ─────────────────────── */
+    #s2 { background: #01e46f; }
+    #s2 .slide-brand { color: var(--dark); }
+    #s2 .eyebrow {
+      color: rgba(14,18,37,0.65);
+      border-color: rgba(14,18,37,0.14);
+      background: rgba(14,18,37,0.08);
+    }
+    #s2 .hl { color: var(--dark); }
+    #s2 .div { background: rgba(14,18,37,0.25); }
+    #s2 .feat-list li {
+      color: var(--dark);
+      background: rgba(255,255,255,0.92);
+      border-color: rgba(255,255,255,0.5);
+    }
+    #s2 .feat-list li .label { color: var(--dark); }
+    #s2 .feat-list li .sub { color: rgba(14,18,37,0.55); }
     #s2 .deco-circle {
       width: 320px; height: 320px;
-      background: rgba(202,255,84,0.05);
+      background: rgba(14,18,37,0.05);
       top: -100px; right: -120px;
     }
 
     /* ── SLIDE 3-5: Stats — dark ────────────────────────────── */
-    #s3, #s4, #s5 { background: var(--dark); }
+    #s3 { background: #6a0dad; }
+    #s4, #s5 { background: var(--dark); }
     #s3 .slide-brand, #s4 .slide-brand, #s5 .slide-brand { color: var(--white); }
     #s3 .eyebrow, #s4 .eyebrow, #s5 .eyebrow { color: var(--muted); }
     #s3 .stat-label, #s4 .stat-label, #s5 .stat-label { color: rgba(255,255,255,0.7); }
@@ -341,36 +362,23 @@
       top: -80px; right: -80px;
     }
 
-    /* ── SLIDE 8: Scale — dark ──────────────────────────────── */
-    #s8 { background: var(--dark); }
+    /* ── SLIDE 8: CTA — split dark/lime ───────────────────────── */
+    #s8 {
+      background: var(--dark);
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      padding: 0;
+    }
     #s8 .slide-brand { color: var(--white); }
-    #s8 .eyebrow { color: var(--muted); }
-    #s8 .hl { color: var(--white); }
-    #s8 .body { color: rgba(255,255,255,0.5); }
-    #s8 .div { background: var(--lime); }
-    #s8 .deco-circle {
-      width: 280px; height: 280px;
-      background: rgba(202,255,84,0.04);
-      bottom: -80px; left: -80px;
-    }
-
-    /* ── SLIDE 9: CTA — lime ────────────────────────────────── */
-    #s9 {
-      background: var(--lime);
-      justify-content: flex-end;
-      padding-bottom: 64px;
-    }
-    #s9 .slide-brand { color: var(--white); }
 
     .s9-top {
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 50%;
       background: var(--dark);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 0 32px 28px;
+      padding: 72px 32px 32px;
+      flex: 0 0 auto;
     }
 
     .s9-top .hl {
@@ -384,16 +392,19 @@
     }
 
     .s9-bottom {
-      position: relative;
-      z-index: 2;
-      width: 100%;
+      background: var(--lime);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 28px 32px 40px;
     }
 
     .s9-links {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-top: 20px;
+      margin-top: 0;
     }
 
     .s9-link {
@@ -495,7 +506,6 @@
     <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
-    <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="8"><div class="prog-fill"></div></div>
   </div>
 
@@ -529,7 +539,8 @@
 
     <!-- ── SLIDE 2: THE PROBLEM ───────────────────────────── -->
     <div class="slide" id="s2">
-      <div class="deco-circle"></div>
+      <img id="clock-bg" src="clock-wireframe.png" aria-hidden="true"
+           style="position:absolute;top:-18%;right:-28%;width:120%;pointer-events:none;mix-blend-mode:multiply;opacity:0.22;transform:rotate(-6deg);" />
       <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
       <div class="slide-content">
         <p class="eyebrow">The Problem</p>
@@ -570,6 +581,8 @@
 
     <!-- ── SLIDE 3: STAT — ABANDONMENT ───────────────────── -->
     <div class="slide" id="s3">
+      <img src="disks-wireframe.png" aria-hidden="true"
+           style="position:absolute;bottom:-10%;right:-20%;width:110%;pointer-events:none;mix-blend-mode:screen;opacity:0.18;transform:rotate(0deg);" />
       <div class="deco-circle"></div>
       <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
       <div class="slide-content">
@@ -664,20 +677,8 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 8: SCALE ─────────────────────────────────── -->
+    <!-- ── SLIDE 8: GETTING STARTED ─────────────────────────── -->
     <div class="slide" id="s8">
-      <div class="deco-circle"></div>
-      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
-      <div class="slide-content">
-        <p class="eyebrow">For Brokers at Scale</p>
-        <h2 class="hl">Run multiple brands. One account.</h2>
-        <div class="div"></div>
-        <p class="body">Separate wallets, settings, and onramp controls per project. Full analytics and export-ready reports.</p>
-      </div>
-    </div>
-
-    <!-- ── SLIDE 9: GETTING STARTED ───────────────────────── -->
-    <div class="slide" id="s9">
       <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
 
       <div class="s9-top">
@@ -720,7 +721,7 @@
 </div><!-- /story -->
 
 <script>
-  const SLIDES = 9;
+  const SLIDES = 8;
   let current = 0;
   let segTimer = null;
   let paused = false;
