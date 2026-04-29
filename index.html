@@ -581,13 +581,8 @@
 
     <!-- ── SLIDE 1: HERO ──────────────────────────────────── -->
     <div class="slide" id="s1">
-      <svg id="globe-bg" aria-hidden="true"
-           viewBox="0 0 430 900"
-           preserveAspectRatio="xMidYMid slice"
-           style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"
-           xmlns="http://www.w3.org/2000/svg">
-        <g id="globe-g"></g>
-      </svg>
+      <img src="globe-wireframe.png" aria-hidden="true"
+           style="position:absolute;bottom:-18%;left:-15%;width:130%;pointer-events:none;mix-blend-mode:multiply;opacity:0.18;" />
       <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
       <div class="slide-content">
         <p class="eyebrow">For Forex Brokers</p>
@@ -924,65 +919,6 @@
     if (Math.abs(dy) > 40) goTo(dy > 0 ? current + 1 : current - 1);
   }, { passive: true });
 
-  // ── Globe background (Slide 1) ─────────────────────────────
-  (function() {
-    const g  = document.getElementById('globe-g');
-    if (!g) return;
-    const ns = 'http://www.w3.org/2000/svg';
-    // Fixed coords within viewBox="0 0 430 900"
-    const R  = 360;
-    const cx = 215;
-    const cy = 600;
-    const elev = 22 * Math.PI / 180;
-    const sinE = Math.sin(elev), cosE = Math.cos(elev);
-    const steps = 120;
-
-    function project(phi, lam) {
-      const x = Math.cos(phi) * Math.sin(lam);
-      const y = Math.sin(phi);
-      const z = Math.cos(phi) * Math.cos(lam);
-      const yR = y * cosE - z * sinE;
-      return [cx + x * R, cy - yR * R];
-    }
-
-    function addPath(pts, sw) {
-      const d  = 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L');
-      const el = document.createElementNS(ns, 'path');
-      el.setAttribute('d', d);
-      el.setAttribute('fill', 'none');
-      el.setAttribute('stroke', '#0E1225');
-      el.setAttribute('stroke-width', sw || '1');
-      g.appendChild(el);
-    }
-
-    // Latitude lines
-    [-60, -45, -30, -15, 0, 15, 30, 45, 60].forEach(lat => {
-      const phi = lat * Math.PI / 180;
-      addPath(Array.from({length: steps + 1}, (_, i) =>
-        project(phi, (i / steps) * 2 * Math.PI)));
-    });
-
-    // Longitude lines (full pole-to-pole arcs)
-    [0, 20, 40, 60, 80, 100, 120, 140, 160].forEach(lon => {
-      const lam = lon * Math.PI / 180;
-      addPath(Array.from({length: steps + 1}, (_, i) =>
-        project((i / steps) * Math.PI - Math.PI / 2, lam)));
-    });
-
-    // Bounding circle
-    const circle = document.createElementNS(ns, 'circle');
-    circle.setAttribute('cx', cx);
-    circle.setAttribute('cy', cy);
-    circle.setAttribute('r', R);
-    circle.setAttribute('fill', 'none');
-    circle.setAttribute('stroke', '#0E1225');
-    circle.setAttribute('stroke-width', '1.5');
-    g.appendChild(circle);
-
-    // In-plane tilt (20° clockwise to match reference)
-    g.setAttribute('transform', `rotate(20, ${cx}, ${cy})`);
-    g.setAttribute('opacity', '0.13');
-  })();
 
   goTo(0, true);
 </script>
