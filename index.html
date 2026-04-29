@@ -225,11 +225,18 @@
     .stat-card {
       padding: 18px 20px;
       border-radius: 18px;
-      background: rgba(14,18,37,0.10);
-      border: 1px solid rgba(14,18,37,0.14);
-      display: inline-flex;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.5);
+      display: flex;
       flex-direction: column;
+      gap: 0;
       margin-top: 4px;
+      width: 100%;
+    }
+    .stat-card-divider {
+      height: 1px;
+      background: rgba(14,18,37,0.1);
+      margin: 14px 0;
     }
 
     /* ── Stat ───────────────────────────────────────────────── */
@@ -610,9 +617,12 @@
             <span class="stat-num">35-45%</span>
             <span class="stat-label">of traders abandon between signup and first deposit</span>
           </div>
+          <div class="stat-card-divider"></div>
+          <div class="stat-row">
+            <span class="stat-num">28%</span>
+            <span class="stat-label">of them fund with a competitor instead.</span>
+          </div>
         </div>
-        <div class="div"></div>
-        <p class="body">28% of them fund with a competitor instead.</p>
       </div>
     </div>
 
