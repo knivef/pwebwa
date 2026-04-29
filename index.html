@@ -335,11 +335,30 @@
     /* ── SLIDE 3-5: Stats — dark ────────────────────────────── */
     #s3 { background: #FF00FF; }
     #s4, #s5 { background: var(--dark); }
-    #s4 .slide-brand, #s5 .slide-brand { color: var(--white); }
-    #s4 .eyebrow, #s5 .eyebrow { color: var(--muted); }
-    #s4 .stat-label, #s5 .stat-label { color: rgba(255,255,255,0.7); }
-    #s4 .body, #s5 .body { color: rgba(255,255,255,0.5); }
-    #s4 .div, #s5 .div { background: var(--lime); }
+    #s5 .slide-brand { color: var(--white); }
+    #s5 .eyebrow { color: var(--muted); }
+    #s5 .stat-label { color: rgba(255,255,255,0.7); }
+    #s5 .body { color: rgba(255,255,255,0.5); }
+    #s5 .div { background: var(--lime); }
+
+    /* ── SLIDE 4: What is PayRam — purple ───────────────────── */
+    #s4 { background: #6A0DAD; }
+    #s4 .slide-brand { color: var(--white); }
+    #s4 .eyebrow {
+      color: var(--lime);
+      border-color: var(--lime);
+      background: rgba(202,255,84,0.08);
+    }
+    #s4 .hl { color: var(--white); }
+    #s4 .body { color: rgba(255,255,255,0.65); }
+    #s4 .div { background: var(--lime); }
+    #s4 .feat-list li {
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--white);
+    }
+    #s4 .feat-list li .label { color: var(--white); }
+    #s4 .feat-list li .sub { color: rgba(255,255,255,0.55); font-size: 12px; }
     #s3 .slide-brand { color: var(--dark); }
     #s3 .eyebrow {
       color: rgba(14,18,37,0.65);
@@ -631,17 +650,44 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 4: STAT — SPEED ──────────────────────────── -->
+    <!-- ── SLIDE 4: WHAT IS PAYRAM ──────────────────────────── -->
     <div class="slide" id="s4">
-      <div class="deco-circle"></div>
       <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
       <div class="slide-content">
-        <div class="stat-row">
-          <span class="stat-num">2-30 sec</span>
-          <span class="stat-label">deposit confirmation time for most stablecoins</span>
-        </div>
+        <p class="eyebrow">What is PayRam</p>
+        <h2 class="hl">A payment gateway that runs on your server.</h2>
         <div class="div"></div>
-        <p class="body">Your trader funds. Trades. Wins. All before a wire clears.</p>
+        <p class="body">Not another processor. Not another middleman.</p>
+        <ul class="feat-list" style="margin-top:16px;">
+          <li>
+            <span class="icon">🏦</span>
+            <div>
+              <div class="label"><strong>Your server</strong></div>
+              <div class="sub">No third party holds your funds or your data</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">⚡</span>
+            <div>
+              <div class="label"><strong>Stablecoins and cards</strong></div>
+              <div class="sub">USDT, USDC, and card onramp in one gateway</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🌍</span>
+            <div>
+              <div class="label"><strong>190+ countries</strong></div>
+              <div class="sub">Traders fund from any exchange or wallet, instantly</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🔓</span>
+            <div>
+              <div class="label"><strong>Non-custodial</strong></div>
+              <div class="sub">Funds go directly to your wallet the moment they arrive</div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
 
