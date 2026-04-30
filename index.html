@@ -51,7 +51,7 @@
       height: 100dvh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: flex-start;
       padding: 72px 32px 56px;
       position: relative;
@@ -281,6 +281,8 @@
       transform: translateY(18px);
       transition: opacity 0.4s ease 0.12s, transform 0.4s ease 0.12s;
       width: 100%;
+      margin-top: auto;
+      margin-bottom: auto;
     }
 
     .slide.is-active .slide-content {
@@ -334,7 +336,7 @@
 
     /* ── SLIDE 3-5: Stats — dark ────────────────────────────── */
     #s3 { background: #FF00FF; }
-    #s4, #s5 { background: var(--dark); }
+#s4, #s5 { background: var(--dark); }
     /* ── SLIDE 5: How It Works — deep purple ───────────────── */
     #s5 { background: #2A0831; }
     #s5 .slide-brand { color: var(--white); }
@@ -772,10 +774,10 @@
             </div>
           </li>
           <li>
-            <span class="icon">💸</span>
+            <span class="icon">📅</span>
             <div>
-              <div class="compare-main"><strong>Negligible</strong> network fees onchain</div>
-              <div class="compare-vs"><span class="vs">vs</span> $15-$50 fee per wire &middot; <span class="vs">vs</span> 3-7% MDR on cards</div>
+              <div class="compare-main">Accept deposits <strong>24/7</strong></div>
+              <div class="compare-vs"><span class="vs">vs</span> banks and PSPs that go offline on weekends</div>
             </div>
           </li>
           <li>
