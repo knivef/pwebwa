@@ -450,9 +450,9 @@
     #s7 .hl { color: #01E46F; }
     #s7 .body { color: rgba(255,255,255,0.6); }
     #s7 .div { background: #01E46F; }
-    #s7 .stat-card { background: rgba(255,255,255,0.92); border-color: rgba(255,255,255,0.5); }
-    #s7 .stat-card-divider { background: rgba(14,18,37,0.1); }
-    #s7 .body-card-text { font-size: 15px; line-height: 1.6; color: rgba(14,18,37,0.75); font-weight: 700; }
+    #s7 .feat-list li { background: rgba(255,255,255,0.92); border-color: rgba(255,255,255,0.5); color: var(--dark); }
+    #s7 .feat-list li .label { color: var(--dark); }
+    #s7 .feat-list li .sub { color: rgba(14,18,37,0.55); font-size: 12px; }
 
     /* ── SLIDE 8: CTA — full lime ─────────────────────────────── */
     #s8 { background: var(--lime); }
@@ -794,11 +794,32 @@
         <p class="eyebrow">Payouts</p>
         <h2 class="hl">Fast in.<br>Fast out.</h2>
         <div class="div"></div>
-        <div class="stat-card" style="gap:0;">
-          <p class="body-card-text">Allow customers to withdraw USDT or USDC to any wallet, in a few clicks.</p>
-          <div class="stat-card-divider"></div>
-          <p class="body-card-text">Address book. Approval workflows. Full audit trail.</p>
-        </div>
+        <ul class="feat-list" style="margin-top:8px;">
+          <li>
+            <span class="icon">💸</span>
+            <div>
+              <div class="label">Allow customers to withdraw funds in a few clicks.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🔁</span>
+            <div>
+              <div class="label">Send USDT or USDC payouts to anyone, directly.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">✅</span>
+            <div>
+              <div class="label">Built-in threshold policies and approval workflows.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🏦</span>
+            <div>
+              <div class="label">Funds disburse directly from your hot wallet.</div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
 
