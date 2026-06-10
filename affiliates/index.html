@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PayRam for Forex Brokers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --lime:  #CAFF54;
+      --dark:  #0E1225;
+      --dark-alt: #1A1F35;
+      --white: #FFFFFF;
+      --muted: rgba(255,255,255,0.5);
+      --border: rgba(255,255,255,0.08);
+    }
+
+    html, body {
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #000;
+    }
+
+    /* ── Story container ────────────────────────────────────── */
+    #story {
+      position: relative;
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      touch-action: pan-y;
+    }
+
+    /* ── Slides track ───────────────────────────────────────── */
+    #track {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: transform 0.38s cubic-bezier(.4,0,.2,1);
+    }
+
+    .slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 72px 32px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Progress bar ───────────────────────────────────────── */
+    #progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      gap: 4px;
+      padding: 14px 14px 0;
+    }
+
+    .prog-seg {
+      flex: 1;
+      height: 3px;
+      background: rgba(255,255,255,0.28);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .prog-fill {
+      height: 100%;
+      width: 0%;
+      background: #fff;
+      border-radius: 2px;
+      transition: width 0.08s linear;
+    }
+
+    .prog-seg.done .prog-fill { width: 100%; }
+    .prog-seg.active .prog-fill { animation: fill-seg var(--seg-dur, 5s) linear forwards; }
+
+    @keyframes fill-seg {
+      from { width: 0%; }
+      to   { width: 100%; }
+    }
+
+    /* ── Tap zones ─────────────────────────────────────────── */
+    #tap-prev, #tap-next {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 38%;
+      z-index: 10;
+    }
+    #tap-prev { left: 0; }
+    #tap-next  { right: 0; }
+
+    /* ── Logo strip ─────────────────────────────────────────── */
+    .slide-brand {
+      position: absolute;
+      top: 34px;
+      left: 32px;
+      z-index: 5;
+      line-height: 0;
+    }
+
+    /* ── Eyebrow label ──────────────────────────────────────── */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 18px;
+    }
+
+    /* ── Headline ───────────────────────────────────────────── */
+    .hl {
+      font-size: clamp(30px, 8.5vw, 47px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+    }
+
+    /* ── Body copy ──────────────────────────────────────────── */
+    .body {
+      font-size: 15px;
+      line-height: 1.65;
+      opacity: 0.72;
+      margin-top: 18px;
+      max-width: 320px;
+    }
+
+    /* ── Divider ────────────────────────────────────────────── */
+    .div {
+      width: 36px;
+      height: 3px;
+      border-radius: 2px;
+      margin: 22px 0;
+    }
+
+    /* ── CTA pill ───────────────────────────────────────────── */
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      margin-top: 28px;
+      letter-spacing: 0.2px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ── Badge pill ─────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    /* ── Feature list — mini cards ──────────────────────────── */
+    .feat-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .feat-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .feat-list li .icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .feat-list li .label { opacity: 0.92; }
+    .feat-list li .sub {
+      font-size: 12px;
+      color: rgba(202,255,84,0.75);
+      font-weight: 400;
+      margin-top: 3px;
+    }
+
+    /* ── Stat card ─────────────────────────────────────────── */
+    .stat-card {
+      padding: 20px 22px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 4px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .stat-card .stat-num {
+      font-size: clamp(36px, 11vw, 68px);
+    }
+    .stat-card-divider {
+      height: 1px;
+      background: rgba(14,18,37,0.1);
+      margin: 14px 0;
+    }
+
+    /* ── Stat ───────────────────────────────────────────────── */
+    .stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-num {
+      font-size: clamp(48px, 15vw, 96px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -3px;
+      color: var(--lime);
+      white-space: nowrap;
+    }
+
+    .stat-label {
+      font-size: 15px;
+      font-weight: 500;
+      opacity: 0.7;
+      letter-spacing: 0.1px;
+      max-width: 280px;
+      line-height: 1.4;
+    }
+
+    /* ── Decorative circle ──────────────────────────────────── */
+    .deco-circle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* ── Slide-in animation ─────────────────────────────────── */
+    .slide-content {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.4s ease 0.12s, transform 0.4s ease 0.12s;
+      width: 100%;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .slide.is-active .slide-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── SLIDE 1: Hero — lime ───────────────────────────────── */
+    #s1 { background: var(--lime); }
+    #s1 .slide-brand { color: var(--dark); }
+    #s1 .eyebrow {
+      color: rgba(14,18,37,0.65);
+      border-color: rgba(14,18,37,0.14);
+      background: rgba(14,18,37,0.08);
+    }
+    #s1 .hl { color: var(--dark); }
+    #s1 .body { color: var(--dark); }
+    #s1 .div { background: rgba(14,18,37,0.2); }
+    #s1 .cta-pill {
+      background: var(--dark);
+      color: var(--lime);
+    }
+    #s1 .deco-circle {
+      width: 280px; height: 280px;
+      background: rgba(14,18,37,0.055);
+      bottom: -80px; right: -80px;
+    }
+
+    /* ── SLIDE 2: Problem — vivid green ─────────────────────── */
+    #s2 { background: #01e46f; }
+    #s2 .slide-brand { color: var(--dark); }
+    #s2 .eyebrow {
+      color: rgba(14,18,37,0.65);
+      border-color: rgba(14,18,37,0.14);
+      background: rgba(14,18,37,0.08);
+    }
+    #s2 .hl { color: var(--dark); }
+    #s2 .div { background: rgba(14,18,37,0.25); }
+    #s2 .feat-list li {
+      color: var(--dark);
+      background: rgba(255,255,255,0.92);
+      border-color: rgba(255,255,255,0.5);
+    }
+    #s2 .feat-list li .label { color: var(--dark); }
+    #s2 .feat-list li .sub { color: rgba(14,18,37,0.55); }
+    #s2 .deco-circle {
+      width: 320px; height: 320px;
+      background: rgba(14,18,37,0.05);
+      top: -100px; right: -120px;
+    }
+
+    /* ── SLIDE 3-5: Stats — dark ────────────────────────────── */
+    #s3 { background: #FF00FF; }
+#s4, #s5 { background: var(--dark); }
+    /* ── SLIDE 5: How It Works — deep purple ───────────────── */
+    #s5 { background: #2A0831; }
+    #s5 .slide-brand { color: var(--white); }
+    #s5 .eyebrow {
+      color: var(--lime);
+      border-color: rgba(202,255,84,0.35);
+      background: rgba(202,255,84,0.08);
+    }
+    #s5 .hl { color: var(--lime); }
+    #s5 .div { background: var(--lime); }
+    #s5 .feat-list li {
+      background: rgba(255,255,255,0.92);
+      border-color: rgba(255,255,255,0.5);
+      color: var(--dark);
+    }
+    #s5 .feat-list li .label { color: var(--dark); }
+    #s5 .feat-list li .sub { color: rgba(14,18,37,0.55); }
+
+    /* ── SLIDE 4: What is PayRam — purple ───────────────────── */
+    #s4 { background: #6A0DAD; }
+    #s4 .slide-brand { color: var(--white); }
+    #s4 .eyebrow {
+      color: var(--lime);
+      border-color: var(--lime);
+      background: rgba(202,255,84,0.08);
+    }
+    #s4 .hl { color: var(--lime); }
+    #s4 .body { color: var(--lime); }
+    #s4 .div { background: var(--lime); }
+    #s4 .feat-list li {
+      background: rgba(255,255,255,0.92);
+      border-color: rgba(255,255,255,0.5);
+      color: var(--dark);
+    }
+    #s4 .feat-list li .label { color: var(--dark); }
+    #s4 .feat-list li .sub { color: rgba(14,18,37,0.55); font-size: 12px; }
+    #s3 .slide-brand { color: var(--dark); }
+    #s3 .eyebrow {
+      color: rgba(14,18,37,0.65);
+      border-color: rgba(14,18,37,0.14);
+      background: rgba(14,18,37,0.08);
+    }
+    #s3 .hl { color: var(--dark); }
+    #s3 .stat-num { color: var(--dark); }
+    #s3 .stat-label { color: rgba(14,18,37,0.75); }
+    #s3 .body { color: rgba(14,18,37,0.65); }
+    #s3 .div { background: rgba(14,18,37,0.3); }
+    #s3 .deco-circle {
+      width: 260px; height: 260px;
+      background: rgba(202,255,84,0.04);
+      bottom: -60px; right: -80px;
+    }
+    #s4 .deco-circle {
+      width: 240px; height: 240px;
+      background: rgba(202,255,84,0.04);
+      top: -60px; left: -60px;
+    }
+    #s5 .deco-circle {
+      width: 260px; height: 260px;
+      background: rgba(202,255,84,0.04);
+      bottom: -80px; right: -80px;
+    }
+
+    /* ── SLIDE 6: By the Numbers — dark ─────────────────────── */
+    #s6 { background: var(--dark); }
+    #s6 .slide-brand { color: var(--white); }
+    #s6 .eyebrow { color: var(--lime); border-color: rgba(202,255,84,0.35); background: rgba(202,255,84,0.08); }
+    #s6 .hl { color: var(--lime); }
+    #s6 .div { background: var(--lime); }
+
+    /* ── Comparison list (cards) ────────────────────────────── */
+    .compare-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .compare-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 14px;
+    }
+    .compare-list .icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .compare-main {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--dark);
+      line-height: 1.4;
+    }
+    .compare-main strong {
+      color: #0a7a3e;
+      font-weight: 800;
+    }
+    .compare-vs {
+      font-size: 12px;
+      color: rgba(14,18,37,0.5);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .compare-vs .vs {
+      color: #cc00cc;
+      font-weight: 700;
+    }
+    /* ── SLIDE 7: Payouts — deep green ─────────────────────── */
+    #s7 { background: #0A1F0A; }
+    #s7 .slide-brand { color: var(--white); }
+    #s7 .eyebrow { color: #01E46F; border-color: #01E46F; background: rgba(1,228,111,0.08); }
+    #s7 .hl { color: #01E46F; }
+    #s7 .body { color: rgba(255,255,255,0.6); }
+    #s7 .div { background: #01E46F; }
+    #s7 .feat-list li { background: rgba(255,255,255,0.92); border-color: rgba(255,255,255,0.5); color: var(--dark); }
+    #s7 .feat-list li .label { color: var(--dark); }
+    #s7 .feat-list li .sub { color: rgba(14,18,37,0.55); font-size: 12px; }
+
+    /* ── SLIDE 8: Growth Tools — green ───────────────────────── */
+    #s8 { background: #01E46F; }
+    #s8 .slide-brand { color: var(--dark); }
+    #s8 .eyebrow { color: rgba(14,18,37,0.65); border-color: rgba(14,18,37,0.2); background: rgba(14,18,37,0.08); }
+    #s8 .hl { color: var(--dark); }
+    #s8 .body { color: rgba(14,18,37,0.65); margin-top: 10px; }
+    #s8 .div { background: var(--dark); }
+    #s8 .feat-list li { background: rgba(255,255,255,0.92); border-color: rgba(255,255,255,0.5); color: var(--dark); }
+
+    /* ── Content-heavy slides: tighter sizing to prevent overflow ── */
+    #s4 .hl, #s5 .hl, #s7 .hl, #s8 .hl { font-size: clamp(24px, 6.5vw, 36px); }
+    #s4 .div, #s5 .div, #s7 .div, #s8 .div { margin: 12px 0; }
+    #s4 .body { margin-top: 10px; }
+    #s4 .feat-list, #s5 .feat-list, #s7 .feat-list, #s8 .feat-list { gap: 6px; }
+    #s4 .feat-list li, #s5 .feat-list li, #s7 .feat-list li, #s8 .feat-list li { padding: 10px 14px; }
+    #s8 .feat-list li .label { color: var(--dark); }
+    #s8 .feat-list li .sub { color: rgba(14,18,37,0.55); font-size: 12px; }
+
+    /* ── SLIDE 9: CTA — full lime ─────────────────────────────── */
+    #s9 { background: var(--lime); }
+    #s9 .slide-brand { color: var(--dark); }
+    #s9 .eyebrow { color: rgba(14,18,37,0.55); border-color: rgba(14,18,37,0.2); background: rgba(14,18,37,0.06); }
+    #s9 .hl { color: var(--dark); font-size: clamp(28px, 7.5vw, 40px); }
+    #s9 .body { color: var(--dark); margin-top: 10px; }
+    #s9 .div { background: var(--dark); }
+
+    .s9-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .s9-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 14px;
+      padding: 14px 18px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .s9-link:hover { background: rgba(14,18,37,0.14); }
+
+    .s9-link-label {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .s9-link-sub {
+      font-size: 11px;
+      color: rgba(14,18,37,0.5);
+      margin-top: 2px;
+    }
+
+
+    .s9-link-arrow {
+      font-size: 16px;
+      color: var(--dark);
+      font-weight: 700;
+    }
+
+    .s9-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
+      color: var(--lime);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 16px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .domain-strip {
+      margin-top: 16px;
+      font-size: 11px;
+      color: var(--dark);
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    /* ── Export PDF button ──────────────────────────────────── */
+    #export-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,0,0,0.42);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 100px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 7px 14px 7px 11px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    #export-btn:hover {
+      background: rgba(202,255,84,0.18);
+      border-color: rgba(202,255,84,0.4);
+    }
+    #export-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* ── Print / PDF export ──────────────────────────────────── */
+    @media print {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      html, body {
+        height: auto !important;
+        overflow: visible !important;
+        background: #000 !important;
+        display: block !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      #story {
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+      #track {
+        display: block !important;
+        transform: none !important;
+        height: auto !important;
+      }
+      .slide {
+        height: 100vh !important;
+        min-height: 100vh !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        position: relative !important;
+        overflow: hidden !important;
+        display: flex !important;
+      }
+      #progress, #tap-prev, #tap-next, #export-btn { display: none !important; }
+      .slide-content { opacity: 1 !important; transform: none !important; }
+      .slide * { opacity: 1 !important; }
+      .feat-list li { background: #ffffff !important; }
+      .stat-card { background: rgba(255,255,255,0.92) !important; }
+      .compare-list li { background: #ffffff !important; }
+      .s9-link { background: rgba(255,255,255,0.92) !important; }
+      .slide img[aria-hidden] { opacity: 0.08 !important; mix-blend-mode: normal !important; }
+      @page { size: 390px 844px; margin: 0; }
+    }
+
+    /* ── Desktop centering frame ────────────────────────────── */
+    @media (min-width: 600px) {
+      html, body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #111;
+      }
+      #story {
+        --frame-h: min(calc(430px * 16 / 9), 95dvh);
+        width: calc(var(--frame-h) * 9 / 16);
+        height: var(--frame-h);
+        border-radius: 32px;
+        box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+        flex-shrink: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── PayRam logo symbol (currentColor — CSS controls variant) ── -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="payram-logo" viewBox="0 0 814 176">
+    <path d="M154.126 58.515C153.846 61.1643 153.218 64.2997 152.238 67.9168C149.946 75.9853 146.046 83.3055 140.542 89.873C135.034 96.4449 128.073 101.653 119.658 105.503C112.056 108.991 103.663 110.9 94.4741 111.236L118.579 78.6734H95.6695L108.99 31.3288L55.7155 95.2062H80.2589L75.7398 111.287H75.6022L64.1087 151.948H24L60.0024 24H116.008C129.617 24 139.652 27.0709 146.115 33.2169C152.578 39.3586 155.248 47.7927 154.121 58.515H154.126Z" fill="currentColor"/>
+    <path d="M242.729 24.0473H196.476L113.682 152H155.782L167.564 132.663H210.205L211.069 152H253.345L242.729 24.0473ZM185.907 102.483L207.526 66.8846L209.031 102.483H185.907Z" fill="currentColor"/>
+    <path d="M341.397 24.0258L308.276 69.3834L300.566 24.0258H254.67L275.502 113.12L264.559 151.974H304.672L315.611 113.12L386.567 24.0258H341.393H341.397Z" fill="currentColor"/>
+    <path d="M476.285 33.2426C469.818 27.0966 459.726 24.0258 445.992 24.0258H386.371L350.373 151.978H390.482L403.424 106.075L414.694 151.978H458.776L444.763 103.004C454.459 100.114 462.603 95.3825 469.194 88.815C475.782 82.2474 480.314 74.6305 482.79 65.9512C483.526 63.547 484.05 60.8331 484.364 57.8182C485.439 47.5776 482.743 39.3844 476.28 33.2426H476.285ZM441.512 68.4802C440.398 72.2177 438.631 74.9574 436.223 76.7035C433.807 78.454 430.676 79.3228 426.824 79.3228H410.923L416.99 57.6375H432.895C436.141 57.6375 438.532 58.3902 440.067 59.8955C441.589 61.4051 442.217 63.4782 441.938 66.1319C441.834 67.0953 441.697 67.878 441.512 68.4802Z" fill="currentColor"/>
+    <path d="M587.826 24.0258H541.568L458.776 151.978H500.875L512.661 132.641H555.298L556.162 151.978H598.442L587.826 24.0258ZM531 102.458L552.623 66.8587L554.128 102.458H531Z" fill="currentColor"/>
+    <path d="M741.042 24.0258L691.96 101.012L685.394 24.0258H636.251L600.253 151.978H640.362L658.292 87.8214L660.059 151.978H694.389L731.952 88.3634L714.082 151.978H754.011L790.004 24.0258H741.042Z" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<div id="story">
+
+  <!-- Progress bar -->
+  <div id="progress">
+    <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="8"><div class="prog-fill"></div></div>
+  </div>
+
+  <!-- Tap zones -->
+  <div id="tap-prev"></div>
+  <div id="tap-next"></div>
+
+  <!-- Slides track -->
+  <div id="track">
+
+    <!-- ── SLIDE 1: HERO ──────────────────────────────────── -->
+    <div class="slide" id="s1">
+      <img src="globe-wireframe.png" aria-hidden="true"
+           style="position:absolute;bottom:-18%;left:-15%;width:130%;pointer-events:none;mix-blend-mode:multiply;opacity:0.18;" />
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">For Forex Brokers</p>
+        <h1 class="hl">The fastest way for traders to fund their accounts.</h1>
+        <div class="div"></div>
+        <p class="body">Onchain. Instant. No bank delays.</p>
+        <a class="cta-pill" href="https://docs.payram.com" target="_blank" rel="noopener">
+          Deploy in 10 min →
+        </a>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 2: THE PROBLEM ───────────────────────────── -->
+    <div class="slide" id="s2">
+      <img id="clock-bg" src="clock-wireframe.png" aria-hidden="true"
+           style="position:absolute;top:-18%;right:-28%;width:120%;pointer-events:none;mix-blend-mode:multiply;opacity:0.22;transform:rotate(-6deg);" />
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">The Problem</p>
+        <h2 class="hl">Your traders want to fund. Your payment rails won't let them.</h2>
+        <div class="div"></div>
+        <ul class="feat-list">
+          <li>
+            <span class="icon">⏳</span>
+            <div>
+              <div class="label">Bank wires take 2-5 days</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🚫</span>
+            <div>
+              <div class="label">Cards get declined</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🔒</span>
+            <div>
+              <div class="label">PSPs hold your funds for months</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🌍</span>
+            <div>
+              <div class="label">Traders in key markets can't deposit at all</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 3: STAT — ABANDONMENT ───────────────────── -->
+    <div class="slide" id="s3">
+      <img src="disks-wireframe.png" aria-hidden="true"
+           style="position:absolute;top:-15%;right:-20%;width:110%;pointer-events:none;mix-blend-mode:multiply;opacity:0.18;transform:rotate(0deg);" />
+      <div class="deco-circle"></div>
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">The Cost</p>
+        <h2 class="hl">Every day this goes unsolved, you lose.</h2>
+        <div class="div"></div>
+        <div class="stat-card">
+          <div class="stat-row">
+            <span class="stat-num">35-45%</span>
+            <span class="stat-label">of traders abandon between signup and first deposit</span>
+          </div>
+          <div class="stat-card-divider"></div>
+          <div class="stat-row">
+            <span class="stat-num">28%</span>
+            <span class="stat-label">of them fund with a competitor instead.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 4: WHAT IS PAYRAM ──────────────────────────── -->
+    <div class="slide" id="s4">
+      <img src="donuts-wireframe.png" aria-hidden="true"
+           style="position:absolute;top:-28%;right:-38%;width:130%;pointer-events:none;mix-blend-mode:multiply;opacity:0.5;" />
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">What is PayRam</p>
+        <h2 class="hl">No middlemen. A payment gateway that runs on your server.</h2>
+        <div class="div"></div>
+        <p class="body">Not another processor. Not another middleman.</p>
+        <ul class="feat-list" style="margin-top:6px;">
+          <li>
+            <span class="icon">🏦</span>
+            <div>
+              <div class="label"><strong>Your server</strong></div>
+              <div class="sub">No third party holds your funds or data</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">⚡</span>
+            <div>
+              <div class="label"><strong>Stablecoins and cards</strong></div>
+              <div class="sub">USDT, USDC, and card onramp in one gateway</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🌍</span>
+            <div>
+              <div class="label"><strong>190+ countries</strong></div>
+              <div class="sub">Fund from any exchange or wallet, instantly</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🔓</span>
+            <div>
+              <div class="label"><strong>Non-custodial</strong></div>
+              <div class="sub">Funds land in your wallet the moment they arrive</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 5: HOW IT WORKS ────────────────────────────── -->
+    <div class="slide" id="s5">
+      <img src="waves-wireframe.png" aria-hidden="true"
+           style="position:absolute;top:-22%;left:-15%;width:130%;pointer-events:none;mix-blend-mode:screen;opacity:0.18;" />
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">How It Works</p>
+        <h2 class="hl">One address per trader. Forever.</h2>
+        <div class="div"></div>
+        <ul class="feat-list">
+          <li>
+            <span class="icon">🙋</span>
+            <div>
+              <div class="label"><strong>Unique deposit address</strong></div>
+              <div class="sub">Send funds from anywhere. Same deposit address always.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">💰</span>
+            <div>
+              <div class="label"><strong>Better UX</strong></div>
+              <div class="sub">Customers add deposit address to address book on exchange. 30-40% more refills.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">⚡</span>
+            <div>
+              <div class="label"><strong>2-30 sec confirmation</strong></div>
+              <div class="sub">Balance updates instantly. Trade immediately.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">💳</span>
+            <div>
+              <div class="label"><strong>Integrated card onramp</strong></div>
+              <div class="sub">Customer pays by card. You settle in USDC (Base).</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 6: BY THE NUMBERS ──────────────────────────── -->
+    <div class="slide" id="s6">
+      <img src="cube-wireframe.png" aria-hidden="true"
+           style="position:absolute;top:-20%;right:-25%;width:115%;pointer-events:none;mix-blend-mode:screen;opacity:0.28;" />
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">PayRam Advantage</p>
+        <h2 class="hl">Built different.</h2>
+        <div class="div"></div>
+        <ul class="compare-list">
+          <li>
+            <span class="icon">⚡</span>
+            <div>
+              <div class="compare-main"><strong>2-30 sec</strong> to confirm deposit onchain</div>
+              <div class="compare-vs"><span class="vs">vs</span> 2-5 days for a wire transfer</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">📅</span>
+            <div>
+              <div class="compare-main">Accept deposits <strong>24/7</strong></div>
+              <div class="compare-vs"><span class="vs">vs</span> banks and PSPs that go offline on weekends</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🔓</span>
+            <div>
+              <div class="compare-main"><strong>Zero</strong> rolling reserves on PayRam</div>
+              <div class="compare-vs"><span class="vs">vs</span> 5-15% upfront deposits held for 60-180 days</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🌍</span>
+            <div>
+              <div class="compare-main"><strong>190+</strong> countries available</div>
+              <div class="compare-vs"><span class="vs">vs</span> whatever regions your PSP allows</div>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <!-- ── SLIDE 7: PAYOUTS ──────────────────────────────── -->
+    <div class="slide" id="s7">
+      <img src="cone-wireframe.png" aria-hidden="true"
+           style="position:absolute;top:-15%;right:-20%;width:120%;pointer-events:none;mix-blend-mode:screen;opacity:0.10;" />
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">Payouts</p>
+        <h2 class="hl">Fast in.<br>Fast out.</h2>
+        <div class="div"></div>
+        <ul class="feat-list" style="margin-top:8px;">
+          <li>
+            <span class="icon">💸</span>
+            <div>
+              <div class="label">Allow customers to withdraw funds in a few clicks.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🔁</span>
+            <div>
+              <div class="label">Send USDT or USDC payouts to anyone, directly.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">✅</span>
+            <div>
+              <div class="label">Built-in threshold policies and approval workflows.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🏦</span>
+            <div>
+              <div class="label">Funds disburse directly from your hot wallet.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 8: GROWTH TOOLS ─────────────────────────────── -->
+    <div class="slide" id="s8">
+      <img src="circles-wireframe.png" aria-hidden="true"
+           style="position:absolute;top:-22%;right:-20%;width:120%;pointer-events:none;mix-blend-mode:multiply;opacity:0.10;" />
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">Built-in Growth Tools</p>
+        <h2 class="hl">Run referral campaigns. Pay automatically.</h2>
+        <div class="div"></div>
+        <p class="body">No third-party tools. No integrations. Growth campaigns run natively inside PayRam.</p>
+        <ul class="feat-list" style="margin-top:6px;">
+          <li>
+            <span class="icon">🎯</span>
+            <div>
+              <div class="label"><strong>Referral campaigns</strong></div>
+              <div class="sub">Set up referral links, promo codes, and deposit bonuses in minutes.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">📊</span>
+            <div>
+              <div class="label"><strong>Event tracking</strong></div>
+              <div class="sub">Track qualifying params: first deposit, deposit amount, trade count, and more.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">💸</span>
+            <div>
+              <div class="label"><strong>Automated payouts</strong></div>
+              <div class="sub">Conditions met? Funds go out automatically. No manual processing.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🔗</span>
+            <div>
+              <div class="label"><strong>Natively onchain</strong></div>
+              <div class="sub">Payouts settle instantly, directly to the referrer's wallet.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 9: GETTING STARTED ─────────────────────────── -->
+    <div class="slide" id="s9">
+      <img src="star-wireframe.png" aria-hidden="true"
+           style="position:absolute;top:-18%;right:-22%;width:120%;pointer-events:none;mix-blend-mode:multiply;opacity:0.10;" />
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <h2 class="hl">Go live in under 10 minutes!</h2>
+        <p class="body">No approval. No paperwork. No waiting.</p>
+        <div class="div" style="margin-top:20px;"></div>
+        <div class="s9-links">
+          <a class="s9-link" href="https://docs.payram.com" target="_blank" rel="noopener">
+            <div>
+              <div class="s9-link-label">🛠️ Self-deploy</div>
+              <div class="s9-link-sub">Visit docs.payram.com</div>
+            </div>
+            <span class="s9-link-arrow">→</span>
+          </a>
+          <a class="s9-link" href="https://mcp.payram.com" target="_blank" rel="noopener">
+            <div>
+              <div class="s9-link-label">🤖 AI agent setup</div>
+              <div class="s9-link-sub">Visit mcp.payram.com</div>
+            </div>
+            <span class="s9-link-arrow">→</span>
+          </a>
+          <a class="s9-link" href="https://calendly.com/payram-sales/payram-demo-crypto-payments" target="_blank" rel="noopener">
+            <div>
+              <div class="s9-link-label">📞 Book a demo</div>
+              <div class="s9-link-sub">Get a quick walkthrough</div>
+            </div>
+            <span class="s9-link-arrow">→</span>
+          </a>
+        </div>
+        <a class="s9-cta" href="https://docs.payram.com" target="_blank" rel="noopener">
+          Deploy in 10 min →
+        </a>
+        <div class="domain-strip"><a href="https://www.payram.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">www.payram.com</a> &bull; <a href="mailto:sales@payram.com" style="color:inherit;text-decoration:none;">sales@payram.com</a></div>
+      </div>
+    </div>
+
+  </div><!-- /track -->
+
+  <!-- PDF export button -->
+  <button id="export-btn" title="Save as PDF">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 3v13"/><path d="m8 12 4 4 4-4"/><path d="M3 18h18"/>
+    </svg>
+    PDF
+  </button>
+
+</div><!-- /story -->
+
+<script>
+  const SLIDES = 9;
+  let current = 0;
+  let segTimer = null;
+  let paused = false;
+
+  const track  = document.getElementById('track');
+  const segs   = document.querySelectorAll('.prog-seg');
+  const slides = document.querySelectorAll('.slide');
+
+  function goTo(idx, immediate) {
+    idx = Math.max(0, Math.min(SLIDES - 1, idx));
+    current = idx;
+
+    track.style.transition = immediate ? 'none' : 'transform 0.38s cubic-bezier(.4,0,.2,1)';
+    track.style.transform  = `translateY(${-idx * 100}%)`;
+
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+
+    segs.forEach((seg, i) => {
+      seg.classList.remove('done', 'active');
+      seg.querySelector('.prog-fill').style.width = '';
+      seg.querySelector('.prog-fill').style.animation = 'none';
+      if (i < idx) {
+        seg.classList.add('done');
+      } else if (i === idx) {
+        const dur = (seg.dataset.dur || 6) + 's';
+        seg.style.setProperty('--seg-dur', dur);
+        void seg.querySelector('.prog-fill').offsetWidth;
+        seg.querySelector('.prog-fill').style.animation = '';
+        seg.classList.add('active');
+      }
+    });
+
+    clearTimeout(segTimer);
+    const dur = parseFloat(segs[idx].dataset.dur || 6) * 1000;
+    segTimer = setTimeout(() => {
+      if (current < SLIDES - 1) goTo(current + 1);
+    }, dur);
+  }
+
+  document.getElementById('tap-prev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('tap-next').addEventListener('click', () => goTo(current + 1));
+
+  let holdTimer;
+  document.getElementById('story').addEventListener('pointerdown', () => {
+    holdTimer = setTimeout(() => {
+      paused = true;
+      clearTimeout(segTimer);
+      segs[current].querySelector('.prog-fill').style.animationPlayState = 'paused';
+    }, 180);
+  });
+
+  document.getElementById('story').addEventListener('pointerup', () => {
+    clearTimeout(holdTimer);
+    if (paused) {
+      paused = false;
+      segs[current].querySelector('.prog-fill').style.animationPlayState = 'running';
+      const dur = parseFloat(segs[current].dataset.dur || 6) * 1000;
+      segTimer = setTimeout(() => {
+        if (current < SLIDES - 1) goTo(current + 1);
+      }, dur);
+    }
+  });
+
+  let touchY = 0;
+  document.getElementById('story').addEventListener('touchstart', e => {
+    touchY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.getElementById('story').addEventListener('touchend', e => {
+    const dy = touchY - e.changedTouches[0].clientY;
+    if (Math.abs(dy) > 40) goTo(dy > 0 ? current + 1 : current - 1);
+  }, { passive: true });
+
+
+  // ── PDF export ───────────────────────────────────────────
+  document.getElementById('export-btn').addEventListener('click', e => {
+    e.stopPropagation();
+    window.print();
+  });
+  window.addEventListener('beforeprint', () => {
+    slides.forEach(s => s.classList.add('is-active'));
+  });
+  window.addEventListener('afterprint', () => {
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === current));
+  });
+
+  goTo(0, true);
+</script>
+
+</body>
+</html>
