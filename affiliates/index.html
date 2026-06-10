@@ -311,28 +311,36 @@
       bottom: -80px; right: -80px;
     }
 
-    /* ── SLIDE 2: Problem — vivid green ─────────────────────── */
-    #s2 { background: #01e46f; }
-    #s2 .slide-brand { color: var(--dark); }
-    #s2 .eyebrow {
-      color: rgba(14,18,37,0.65);
-      border-color: rgba(14,18,37,0.14);
-      background: rgba(14,18,37,0.08);
+    /* ── SLIDE 2: Comparison table — dark ───────────────────── */
+    #s2 { background: var(--dark); }
+    #s2 .slide-brand { color: var(--white); }
+    #s2 .eyebrow { color: var(--lime); border-color: rgba(202,255,84,0.35); background: rgba(202,255,84,0.08); }
+    #s2 .hl { color: var(--lime); }
+    #s2 .div { background: var(--lime); }
+
+    /* comparison table */
+    .ctable { display: flex; flex-direction: column; gap: 7px; margin-top: 2px; }
+    .ctable-head { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .ctable-head span {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 8px 12px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 38px;
     }
-    #s2 .hl { color: var(--dark); }
-    #s2 .div { background: rgba(14,18,37,0.25); }
-    #s2 .feat-list li {
-      color: var(--dark);
-      background: rgba(255,255,255,0.92);
-      border-color: rgba(255,255,255,0.5);
+    .ch-them { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.12); }
+    .ch-us   { background: #01E46F; color: var(--dark); }
+    .crow { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .ccell {
+      padding: 12px 13px; border-radius: 14px;
+      font-size: 13px; font-weight: 500; line-height: 1.32;
+      display: flex; gap: 9px; align-items: flex-start;
     }
-    #s2 .feat-list li .label { color: var(--dark); }
-    #s2 .feat-list li .sub { color: rgba(14,18,37,0.55); }
-    #s2 .deco-circle {
-      width: 320px; height: 320px;
-      background: rgba(14,18,37,0.05);
-      top: -100px; right: -120px;
-    }
+    .ccell .ico { font-size: 16px; flex-shrink: 0; line-height: 1.2; }
+    .c-them { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); color: rgba(255,255,255,0.62); }
+    .c-them .ico { opacity: 0.55; filter: grayscale(0.5); }
+    .c-us { background: rgba(255,255,255,0.94); border: 1px solid rgba(255,255,255,0.5); color: var(--dark); font-weight: 600; }
+    .c-us strong { color: #0a7a3e; font-weight: 800; }
 
     /* ── SLIDE 3-5: Stats — dark ────────────────────────────── */
     #s3 { background: #FF00FF; }
@@ -697,15 +705,12 @@
   <!-- Progress bar -->
   <div id="progress">
     <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
-    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
-    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
-    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
-    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
-    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="8"><div class="prog-fill"></div></div>
   </div>
 
@@ -732,59 +737,35 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 2a: SHUTDOWN ─────────────────────────────── -->
-    <div class="slide split" id="s2a">
-      <div class="split-half split-problem">
-        <span class="split-tag">Your Processor</span>
-        <span class="split-icon">⛔</span>
-        <p class="split-hl">Your processor can shut your account down. Anytime.</p>
-      </div>
-      <div class="split-half split-solution">
-        <span class="split-tag">PayRam</span>
-        <span class="split-icon">🛡️</span>
-        <p class="split-hl">PayRam cannot be shut down. Because you run the server.</p>
-      </div>
-    </div>
-
-    <!-- ── SLIDE 2b: VISIBILITY ───────────────────────────── -->
-    <div class="slide split" id="s2b">
-      <div class="split-half split-problem">
-        <span class="split-tag">Your Processor</span>
-        <span class="split-icon">👁️</span>
-        <p class="split-hl">Your PSP sees every transaction, customer, and balance.</p>
-      </div>
-      <div class="split-half split-solution">
-        <span class="split-tag">PayRam</span>
-        <span class="split-icon">🙈</span>
-        <p class="split-hl">PayRam sees nothing. All data lives on your server, owned by you.</p>
-      </div>
-    </div>
-
-    <!-- ── SLIDE 2c: PRIVACY ──────────────────────────────── -->
-    <div class="slide split" id="s2c">
-      <div class="split-half split-problem">
-        <span class="split-tag">Your Processor</span>
-        <span class="split-icon">📋</span>
-        <p class="split-hl">Your funds reported to third parties you never agreed to.</p>
-      </div>
-      <div class="split-half split-solution">
-        <span class="split-tag">PayRam</span>
-        <span class="split-icon">🤐</span>
-        <p class="split-hl">Your fund flows stay private. No monitoring, no flagging, no reporting.</p>
-      </div>
-    </div>
-
-    <!-- ── SLIDE 2d: COST ─────────────────────────────────── -->
-    <div class="slide split" id="s2d">
-      <div class="split-half split-problem">
-        <span class="split-tag">Your Processor</span>
-        <span class="split-icon">💸</span>
-        <p class="split-hl">Setup fees, integration costs, and rolling reserves before you earn a cent.</p>
-      </div>
-      <div class="split-half split-solution">
-        <span class="split-tag">PayRam</span>
-        <span class="split-icon">🚀</span>
-        <p class="split-hl">$0 to start. Install in 10 minutes and go live.</p>
+    <!-- ── SLIDE 2: COMPARISON TABLE ─────────────────────── -->
+    <div class="slide" id="s2">
+      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+      <div class="slide-content">
+        <p class="eyebrow">The Problem</p>
+        <h2 class="hl">Their gateway.<br>Or yours.</h2>
+        <div class="div"></div>
+        <div class="ctable">
+          <div class="ctable-head">
+            <span class="ch-them">Your current processor</span>
+            <span class="ch-us"><svg height="14" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></span>
+          </div>
+          <div class="crow">
+            <div class="ccell c-them"><span class="ico">⛔</span><span>Can shut your account down anytime</span></div>
+            <div class="ccell c-us"><span class="ico">🛡️</span><span><strong>Cannot be shut down.</strong> You run the server.</span></div>
+          </div>
+          <div class="crow">
+            <div class="ccell c-them"><span class="ico">👁️</span><span>Sees every transaction, customer, and balance</span></div>
+            <div class="ccell c-us"><span class="ico">🙈</span><span><strong>Sees nothing.</strong> Data lives on your server.</span></div>
+          </div>
+          <div class="crow">
+            <div class="ccell c-them"><span class="ico">📋</span><span>Reports your funds to third parties</span></div>
+            <div class="ccell c-us"><span class="ico">🤐</span><span><strong>Flows stay private.</strong> No monitoring or flagging.</span></div>
+          </div>
+          <div class="crow">
+            <div class="ccell c-them"><span class="ico">💸</span><span>Fees and rolling reserves before you earn a cent</span></div>
+            <div class="ccell c-us"><span class="ico">🚀</span><span><strong>$0 to start.</strong> Live in 10 minutes.</span></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1031,7 +1012,7 @@
 </div><!-- /story -->
 
 <script>
-  const SLIDES = 11;
+  const SLIDES = 8;
   let current = 0;
   let segTimer = null;
   let paused = false;
