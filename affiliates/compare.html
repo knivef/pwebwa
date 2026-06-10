@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PayRam — Their gateway. Or yours.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --lime:  #CAFF54;
+      --green: #01E46F;
+      --dark:  #0E1225;
+      --white: #FFFFFF;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #000;
+    }
+
+    /* ── Slide frame ───────────────────────────────────────── */
+    #slide {
+      position: relative;
+      width: 100%;
+      height: 100dvh;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 62px 26px 34px;
+      overflow: hidden;
+    }
+
+    .slide-brand { position: absolute; top: 32px; left: 26px; color: var(--white); line-height: 0; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px; border-radius: 100px;
+      border: 1px solid rgba(202,255,84,0.35);
+      background: rgba(202,255,84,0.08);
+      color: var(--lime);
+      margin-bottom: 16px;
+    }
+
+    .hl {
+      font-size: clamp(28px, 8vw, 40px);
+      font-weight: 800; line-height: 1.05; letter-spacing: -1.5px;
+      color: var(--lime);
+    }
+
+    .div { width: 36px; height: 3px; border-radius: 2px; background: var(--lime); margin: 18px 0 16px; }
+
+    /* ── Comparison table ──────────────────────────────────── */
+    .ctable { display: flex; flex-direction: column; gap: 7px; margin-top: 2px; }
+
+    .ctable-head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .ctable-head span {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 8px 12px; border-radius: 10px; text-align: center;
+    }
+    .ch-them { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.12); }
+    .ch-us   { background: var(--green); color: var(--dark); }
+
+    .crow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .ccell {
+      padding: 12px 13px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.32;
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
+    .ccell .ico { font-size: 16px; flex-shrink: 0; line-height: 1.2; }
+    .c-them {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: rgba(255,255,255,0.62);
+    }
+    .c-them .ico { opacity: 0.55; filter: grayscale(0.5); }
+    .c-us {
+      background: rgba(255,255,255,0.94);
+      border: 1px solid rgba(255,255,255,0.5);
+      color: var(--dark);
+      font-weight: 600;
+    }
+    .c-us strong { color: #0a7a3e; font-weight: 800; }
+
+    /* ── Decorative ────────────────────────────────────────── */
+    .deco {
+      position: absolute;
+      width: 260px; height: 260px; border-radius: 50%;
+      background: rgba(202,255,84,0.04);
+      bottom: -80px; right: -80px; pointer-events: none;
+    }
+
+    @media print {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      html, body { height: auto !important; overflow: visible !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      #slide { height: 100vh !important; }
+      @page { size: 390px 844px; margin: 0; }
+    }
+
+    @media (min-width: 600px) {
+      html, body { display: flex; align-items: center; justify-content: center; background: #111; }
+      #slide {
+        --frame-h: min(calc(430px * 16 / 9), 95dvh);
+        width: calc(var(--frame-h) * 9 / 16);
+        height: var(--frame-h);
+        border-radius: 32px;
+        box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+        flex-shrink: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="payram-logo" viewBox="0 0 814 176">
+    <path d="M154.126 58.515C153.846 61.1643 153.218 64.2997 152.238 67.9168C149.946 75.9853 146.046 83.3055 140.542 89.873C135.034 96.4449 128.073 101.653 119.658 105.503C112.056 108.991 103.663 110.9 94.4741 111.236L118.579 78.6734H95.6695L108.99 31.3288L55.7155 95.2062H80.2589L75.7398 111.287H75.6022L64.1087 151.948H24L60.0024 24H116.008C129.617 24 139.652 27.0709 146.115 33.2169C152.578 39.3586 155.248 47.7927 154.121 58.515H154.126Z" fill="currentColor"/>
+    <path d="M242.729 24.0473H196.476L113.682 152H155.782L167.564 132.663H210.205L211.069 152H253.345L242.729 24.0473ZM185.907 102.483L207.526 66.8846L209.031 102.483H185.907Z" fill="currentColor"/>
+    <path d="M341.397 24.0258L308.276 69.3834L300.566 24.0258H254.67L275.502 113.12L264.559 151.974H304.672L315.611 113.12L386.567 24.0258H341.393H341.397Z" fill="currentColor"/>
+    <path d="M476.285 33.2426C469.818 27.0966 459.726 24.0258 445.992 24.0258H386.371L350.373 151.978H390.482L403.424 106.075L414.694 151.978H458.776L444.763 103.004C454.459 100.114 462.603 95.3825 469.194 88.815C475.782 82.2474 480.314 74.6305 482.79 65.9512C483.526 63.547 484.05 60.8331 484.364 57.8182C485.439 47.5776 482.743 39.3844 476.28 33.2426H476.285ZM441.512 68.4802C440.398 72.2177 438.631 74.9574 436.223 76.7035C433.807 78.454 430.676 79.3228 426.824 79.3228H410.923L416.99 57.6375H432.895C436.141 57.6375 438.532 58.3902 440.067 59.8955C441.589 61.4051 442.217 63.4782 441.938 66.1319C441.834 67.0953 441.697 67.878 441.512 68.4802Z" fill="currentColor"/>
+    <path d="M587.826 24.0258H541.568L458.776 151.978H500.875L512.661 132.641H555.298L556.162 151.978H598.442L587.826 24.0258ZM531 102.458L552.623 66.8587L554.128 102.458H531Z" fill="currentColor"/>
+    <path d="M741.042 24.0258L691.96 101.012L685.394 24.0258H636.251L600.253 151.978H640.362L658.292 87.8214L660.059 151.978H694.389L731.952 88.3634L714.082 151.978H754.011L790.004 24.0258H741.042Z" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<div id="slide">
+  <div class="deco"></div>
+  <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
+
+  <p class="eyebrow">The Problem</p>
+  <h2 class="hl">Their gateway.<br>Or yours.</h2>
+  <div class="div"></div>
+
+  <div class="ctable">
+    <div class="ctable-head">
+      <span class="ch-them">Your current processor</span>
+      <span class="ch-us">PayRam</span>
+    </div>
+
+    <div class="crow">
+      <div class="ccell c-them"><span class="ico">⛔</span><span>Can shut your account down anytime</span></div>
+      <div class="ccell c-us"><span class="ico">🛡️</span><span><strong>Cannot be shut down.</strong> You run the server.</span></div>
+    </div>
+
+    <div class="crow">
+      <div class="ccell c-them"><span class="ico">👁️</span><span>Sees every transaction, customer, and balance</span></div>
+      <div class="ccell c-us"><span class="ico">🙈</span><span><strong>Sees nothing.</strong> Data lives on your server.</span></div>
+    </div>
+
+    <div class="crow">
+      <div class="ccell c-them"><span class="ico">📋</span><span>Reports your funds to third parties</span></div>
+      <div class="ccell c-us"><span class="ico">🤐</span><span><strong>Flows stay private.</strong> No monitoring or flagging.</span></div>
+    </div>
+
+    <div class="crow">
+      <div class="ccell c-them"><span class="ico">💸</span><span>Fees and rolling reserves before you earn a cent</span></div>
+      <div class="ccell c-us"><span class="ico">🚀</span><span><strong>$0 to start.</strong> Live in 10 minutes.</span></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

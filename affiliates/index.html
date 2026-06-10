@@ -545,6 +545,45 @@
       text-align: center;
     }
 
+    /* ── SLIDE 2a-2d: Split problem / solution ──────────────── */
+    .slide.split { padding: 0; flex-direction: column; }
+    .split-half {
+      flex: 1 1 50%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 34px 30px;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .slide.split.is-active .split-problem  { opacity: 1; transform: none; transition-delay: 0.10s; }
+    .slide.split.is-active .split-solution { opacity: 1; transform: none; transition-delay: 0.24s; }
+    .split-tag {
+      position: absolute;
+      top: 24px; left: 30px;
+      display: inline-flex; align-items: center;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 13px; border-radius: 100px;
+    }
+    .split-icon { font-size: 30px; line-height: 1; margin-bottom: 14px; }
+    .split-hl {
+      font-size: clamp(19px, 5.4vw, 27px);
+      font-weight: 800; line-height: 1.15; letter-spacing: -0.6px;
+      max-width: 340px;
+    }
+    .split-problem { background: #10141d; }
+    .split-problem .split-tag { color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.06); }
+    .split-problem .split-hl  { color: rgba(255,255,255,0.78); }
+    .split-problem .split-icon { opacity: 0.45; filter: grayscale(0.5); }
+    .split-solution { background: #01E46F; box-shadow: 0 -1px 0 rgba(14,18,37,0.25); }
+    .split-solution .split-tag { color: #0E1225; border: 1px solid rgba(14,18,37,0.2); background: rgba(14,18,37,0.1); }
+    .split-solution .split-hl  { color: #0E1225; }
+
     /* ── Export PDF button ──────────────────────────────────── */
     #export-btn {
       position: absolute;
@@ -613,6 +652,9 @@
       .stat-card { background: rgba(255,255,255,0.92) !important; }
       .compare-list li { background: #ffffff !important; }
       .s9-link { background: rgba(255,255,255,0.92) !important; }
+      .split-half { opacity: 1 !important; transform: none !important; }
+      .split-solution { background: #01E46F !important; }
+      .split-problem { background: #10141d !important; }
       .slide img[aria-hidden] { opacity: 0.08 !important; mix-blend-mode: normal !important; }
       @page { size: 390px 844px; margin: 0; }
     }
@@ -655,12 +697,15 @@
   <!-- Progress bar -->
   <div id="progress">
     <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
-    <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
-    <div class="prog-seg" data-dur="7"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="6"><div class="prog-fill"></div></div>
+    <div class="prog-seg" data-dur="5"><div class="prog-fill"></div></div>
     <div class="prog-seg" data-dur="8"><div class="prog-fill"></div></div>
   </div>
 
@@ -687,41 +732,59 @@
       </div>
     </div>
 
-    <!-- ── SLIDE 2: THE PROBLEM ───────────────────────────── -->
-    <div class="slide" id="s2">
-      <img id="clock-bg" src="clock-wireframe.png" aria-hidden="true"
-           style="position:absolute;top:-18%;right:-28%;width:120%;pointer-events:none;mix-blend-mode:multiply;opacity:0.22;transform:rotate(-6deg);" />
-      <div class="slide-brand"><svg height="20" viewBox="0 0 814 176" xmlns="http://www.w3.org/2000/svg" aria-label="PayRam" style="display:block;"><use href="#payram-logo"/></svg></div>
-      <div class="slide-content">
-        <p class="eyebrow">The Problem</p>
-        <h2 class="hl">Your processor knows everything. And answers to everyone.</h2>
-        <div class="div"></div>
-        <ul class="feat-list">
-          <li>
-            <span class="icon">👁</span>
-            <div>
-              <div class="label">Every transaction, customer, and balance is visible to your PSP</div>
-            </div>
-          </li>
-          <li>
-            <span class="icon">🚫</span>
-            <div>
-              <div class="label">Accounts frozen or terminated without warning</div>
-            </div>
-          </li>
-          <li>
-            <span class="icon">📋</span>
-            <div>
-              <div class="label">Your data reported to third parties you never agreed to</div>
-            </div>
-          </li>
-          <li>
-            <span class="icon">💸</span>
-            <div>
-              <div class="label">Setup fees, integration costs, and rolling reserves before you earn a cent</div>
-            </div>
-          </li>
-        </ul>
+    <!-- ── SLIDE 2a: SHUTDOWN ─────────────────────────────── -->
+    <div class="slide split" id="s2a">
+      <div class="split-half split-problem">
+        <span class="split-tag">Your Processor</span>
+        <span class="split-icon">⛔</span>
+        <p class="split-hl">Your processor can shut your account down. Anytime.</p>
+      </div>
+      <div class="split-half split-solution">
+        <span class="split-tag">PayRam</span>
+        <span class="split-icon">🛡️</span>
+        <p class="split-hl">PayRam cannot be shut down. Because you run the server.</p>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 2b: VISIBILITY ───────────────────────────── -->
+    <div class="slide split" id="s2b">
+      <div class="split-half split-problem">
+        <span class="split-tag">Your Processor</span>
+        <span class="split-icon">👁️</span>
+        <p class="split-hl">Your PSP sees every transaction, customer, and balance.</p>
+      </div>
+      <div class="split-half split-solution">
+        <span class="split-tag">PayRam</span>
+        <span class="split-icon">🙈</span>
+        <p class="split-hl">PayRam sees nothing. All data lives on your server, owned by you.</p>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 2c: PRIVACY ──────────────────────────────── -->
+    <div class="slide split" id="s2c">
+      <div class="split-half split-problem">
+        <span class="split-tag">Your Processor</span>
+        <span class="split-icon">📋</span>
+        <p class="split-hl">Your funds reported to third parties you never agreed to.</p>
+      </div>
+      <div class="split-half split-solution">
+        <span class="split-tag">PayRam</span>
+        <span class="split-icon">🤐</span>
+        <p class="split-hl">Your fund flows stay private. No monitoring, no flagging, no reporting.</p>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 2d: COST ─────────────────────────────────── -->
+    <div class="slide split" id="s2d">
+      <div class="split-half split-problem">
+        <span class="split-tag">Your Processor</span>
+        <span class="split-icon">💸</span>
+        <p class="split-hl">Setup fees, integration costs, and rolling reserves before you earn a cent.</p>
+      </div>
+      <div class="split-half split-solution">
+        <span class="split-tag">PayRam</span>
+        <span class="split-icon">🚀</span>
+        <p class="split-hl">$0 to start. Install in 10 minutes and go live.</p>
       </div>
     </div>
 
@@ -968,7 +1031,7 @@
 </div><!-- /story -->
 
 <script>
-  const SLIDES = 8;
+  const SLIDES = 11;
   let current = 0;
   let segTimer = null;
   let paused = false;
